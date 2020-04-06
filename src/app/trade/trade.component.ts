@@ -862,6 +862,8 @@ export class TradeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+  
+
   // tabChange(event) {
   //   if (this.isMobile === false) {
   //     this.size.update();

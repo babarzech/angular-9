@@ -282,7 +282,7 @@
         </div>
       </div>
 
-      <!-- <app-user-orders [chartOffsetTop]="chartOffsetTop" [isOrderTab]="isOrderTab"
+      <app-user-orders [chartOffsetTop]="chartOffsetTop" [isOrderTab]="isOrderTab"
         (toggleChartEvent)="toggleChart($event)" [tversion2]="tversion2" [isTablet]="isTablet"
         [togglechart]="togglechart" (historyTabChangeEvent)="historyTabChange($event)" [stockChart]="stockChart"
         [matTab4]="matTab4" [dropdownName]="dropdownName" [historyDetailStatus]="historyDetailStatus"
@@ -291,7 +291,7 @@
         [defaultSetting]="defaultSetting" [mcsLoaderStatus]="mcsLoaderStatus" [dropdownStatus]="dropdownStatus"
         [dropdownModel]="dropdownModel" [orderType32]="orderType32" [myOrders]="myOrders" [ordHistTab32]="ordHistTab32"
         [mainPair]="mainPair" [myWallets]="myWallets" [isLogin]="isLogin" [isMobile]="isMobile">
-      </app-user-orders> -->
+      </app-user-orders>
 
     </div>
     <div class="tradePanel-right">
@@ -531,7 +531,7 @@
       <div
         [ngStyle]="{'display': !isMobile &&  toggleChartTablet() ? '' : 'none', 'margin-bottom': (-changeInTotalOrder ) + 'px'}"
         class="subpanel buySell-panel">
-        <div *ngIf="false" [@.disabled]="true" class="tab1 tab-small">
+        <div *ngIf="!isMobile" [@.disabled]="true" class="tab1 tab-small">
           <!-- (selectedTabChange)="tabChange($event)" -->
           <mat-tab-group [selectedIndex]="matTab2" class="mat-tab-group12">
             <mat-tab label="{{ (!isTablet ? 'LimitOrder' : 'Limit' ) | tx}}">
