@@ -1,0 +1,147 @@
+/* this css is only for russian language */
+html[lang = "ru"] .forty-discount p {
+  word-spacing: 3px;
+  font-size: 12px;
+}
+html[lang = "ru"] .filter-box .btn1-success {
+  margin-left: 20px;
+}
+html[lang = "ru"] .horder-pair .mat-slide-toggle-content {
+  font-size: 0.8rem;
+}
+html[lang = "ru"] .mat-tab-content-0-3 .tab1 .mat-tab-label {
+  font-size: 0.7rem;
+}
+html[lang = "ru"] .referal-banner h6 {
+  margin: 0 28px 20px;
+  font-size: 1.625rem;
+}
+html[lang = "ru"] .referal-banner .btn1 {
+  font-size: 0.8125rem;
+}
+html[lang = "ru"] .referal-banner h3 {
+  font-size: 1.4rem;
+}
+html[lang = "ru"] .authenticate-btnWrap .btn1{
+  font-size: 0.8rem;
+}
+html[lang = "ru"] .apiBtn-ctr .input-field input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-size:14px;
+}
+html[lang = "ru"] .apiBtn-ctr .input-field input::-moz-placeholder { /* Firefox 19+ */
+  font-size:14px;
+}
+html[lang = "ru"] .apiBtn-ctr .input-field input:-ms-input-placeholder { /* IE 10+ */
+  font-size:14px;
+}
+html[lang = "ru"] .apiBtn-ctr .input-field input:-moz-placeholder { /* Firefox 18- */
+  font-size:14px;
+}
+html[lang = "ru"] .apiBtn-ctr .btn1 {
+  font-size: 14px;
+}
+html[lang = "ru"] .buySell-panel .input-field-wrap label{
+  max-width:70px;
+  line-height: 1;
+}
+html[lang = "ru"] .orderHistoryTab32.tab1 .mat-tab-label
+{
+  font-size: 0.8rem !important;
+}
+html[lang = "ru"] .orderHistoryTab32 .table1 .dropdown-menu{
+    width:auto;
+}
+html[lang = "ru"] .buySell-panel .input-field-wrap label{
+  font-size: 0.75rem;
+}
+html[lang = "ru"] .grey-table thead th,
+html[lang = "ru"] .grey-table tbody td {
+    padding: 10px 8px;
+}
+
+@media screen and (max-width: 991px){
+    html[lang = "ru"] .referal-banner .btn1 {
+      font-size: 1.2rem;
+    }
+    html[lang = "ru"] .referal-banner h3 {
+      font-size: 2rem;
+    }
+    html[lang = "ru"] .referal-banner h6 {
+      font-size: 1.4rem;
+    }
+}
+@media screen and (max-width: 1199px) and (min-width: 768px){
+    html[lang = "ru"] .buySell-panel .input-field-wrap label {
+      min-width: 78px;
+      max-width: 78px;
+      line-height: 1;
+    }
+    html[lang = "ru"] .orderHistoryTab32.tab1 .mat-tab-label {
+      padding: 0 8px !important;
+    }
+    html[lang = "ru"] .orderHistoryTab32.tab1 .mat-tab-label {
+      padding: 0 8px !important;
+    }
+    html[lang = "ru"] .orderHistoryTab32 .tab1 .mat-tab-label {
+      font-size: 0.8rem;
+    }
+    html[lang = "ru"] .horder-pair .mat-slide-toggle-content {
+      font-size: 0.8rem;
+    }
+    html[lang = "ru"] .horder-pair {
+      margin-right: 7px;
+    }
+    html[lang = "ru"] .buySell-panel .col-lg-6 {
+      padding: 13px 9px 8px 10px;
+  }
+}
+@media screen and (max-width: 991px){
+  html[lang = "ru"] .referal-banner h6 {
+    margin: 0 0px 2px;
+    font-size: 1.4rem;
+  }
+  html[lang = "ru"] .authenticate-btnWrap .btn1{
+    font-size: 0.8rem;
+  }
+
+}
+
+@media screen and (max-width: 767px){
+  html[lang = "ru"] .mob-acctSetting .feat-item strong{
+    flex-basis: 20%;
+  }
+}
+
+@media screen and (max-width: 680px) and (min-width: 375px){
+
+html[lang = "ru"] .referal-banner h3 {
+    font-size: 1.2rem;
+}
+html[lang = "ru"] .referal-banner .btn1 {
+  font-size: 0.8rem;
+}
+html[lang = "ru"] .referal-banner h6 {
+  margin: 0 0px 2px;
+  font-size: 0.8rem;
+}
+html[lang = "ru"] .authenticate-btnWrap .btn1{
+  font-size: 0.6rem;
+}
+}
+@media screen and (max-width: 375px){
+
+  html[lang = "ru"] .referal-banner h3 {
+    font-size: 1.1rem;
+}
+html[lang = "ru"] .referal-banner h6 {
+  font-size: 0.7rem;
+  margin: 10px 0px 22px;
+}
+html[lang = "ru"] .referal-banner .btn1 {
+  font-size: 0.7rem;
+}
+html[lang = "ru"] .authenticate-btnWrap .btn1 {
+  font-size: 0.54rem;
+}
+
+}

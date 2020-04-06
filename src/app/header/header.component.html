@@ -1,0 +1,709 @@
+<header class="header" [ngClass]="{'open': menuOpen, 'header-trade': mainPair}">
+  <div class="container" [class.header-top]="!mainPair">
+
+    <!-- <div class="col-md-3 col-md-2_5 logo pull-left"> -->
+    <div class="logo">
+      <a href="{{ basehref }}">
+        <!-- <img src="assets/images/logo.png" alt=""> -->
+        <svg *ngIf="!mainPair" xmlns="http://www.w3.org/2000/svg" width="198.573" height="36.619"
+          viewBox="0 0 198.573 36.619">
+          <defs>
+            <style>
+              .cls1-logo,
+              .cls2-logo {
+                fill: #fff
+              }
+
+              .cls1-logo {
+                fill-rule: evenodd
+              }
+            </style>
+          </defs>
+          <g id="Artboard-2" transform="translate(250.297 356.541)">
+            <g id="Group-2" transform="translate(-250.297 -356.541)">
+              <path id="Path-5"
+                d="M21.676 3.53l9.83 8.539-3.535 3.708L20.6 9.315v6.462h2.93v4.9H20.6v6.557l7.371-6.4 3.535 3.947-13.851 11.838L0 18.322 17.655 0l4.021 3.53-6.293 5.785v17.922l-8.375-8.915 8.375-9.006"
+                class="cls1-logo"></path>
+              <g id="Group" transform="translate(44.825 7.531)">
+                <path id="Shape"
+                  d="M19.089 11.6C19.155 16.8 16 21.994 8.826 21.994H.8V1.6h8.026c7.04 0 10.132 5 10.263 10zM4.616 18.31h4.21c4.671 0 6.513-3.421 6.381-6.71-.066-3.158-1.974-6.381-6.381-6.381h-4.21z"
+                  class="cls2-logo" transform="translate(-.8 -1.205)"></path>
+                <path id="Shape-2" d="M61.829 22.06H46.5V1.6h15.329v3.75H50.316v4.737h11.052v3.618H50.316v4.605h11.513z"
+                  class="cls2-logo" data-name="Shape" transform="translate(-16.435 -1.205)"></path>
+                <path id="Shape-3"
+                  d="M106.318 19.289a10.611 10.611 0 0 1-7.763 3.026c-7.631 0-10.789-5.263-10.855-10.526C87.7 6.46 91.121 1 98.555 1a10.462 10.462 0 0 1 7.5 3.158l-2.566 2.5a6.956 6.956 0 0 0-4.934-1.908 6.688 6.688 0 0 0-7.039 7.105c0 3.421 1.974 6.908 7.039 6.908a7.329 7.329 0 0 0 5.132-2.105z"
+                  class="cls2-logo" data-name="Shape" transform="translate(-30.53 -.999)"></path>
+                <path id="Shape-4"
+                  d="M153.152 11.723c-.066 5.263-3.289 10.592-10.526 10.592S132.1 17.118 132.1 11.789 135.521 1 142.626 1c7.04-.066 10.592 5.394 10.526 10.723zm-17.237.066c.066 3.355 1.908 6.974 6.71 6.974s6.645-3.618 6.71-6.974c.066-3.421-1.842-7.3-6.71-7.3s-6.775 3.879-6.709 7.3z"
+                  class="cls2-logo" data-name="Shape" transform="translate(-45.72 -.999)"></path>
+                <path id="Shape-5" d="M182.6 22.06V1.6h3.816v20.46z" class="cls2-logo" data-name="Shape"
+                  transform="translate(-62.996 -1.205)"></path>
+                <path id="Shape-6" d="M221.758 1.5h3.882v20.46h-2.368l-10.79-13.815V21.96H208.6V1.566h3.158l10 12.7z"
+                  class="cls2-logo" data-name="Shape" transform="translate(-71.891 -1.17)"></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+        <svg *ngIf="mainPair" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 208 42" version="1.1">
+          <g id="new-hompage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Desktop-hompage-new1" transform="translate(-67.000000, -8.000000)">
+              <g id="site-logo" transform="translate(67.000000, 8.000000)">
+                <g id="Group" transform="translate(48.000000, 12.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                  <path
+                    d="M19.1989438,9.84908836 C19.2680048,14.9680224 15.9530792,20.0869565 8.42543578,20.0869565 C5.80111972,20.0869565 2.62431606,20.0869565 0,20.0869565 L0,0 C2.62431606,0 5.80111972,0 8.42543578,0 C15.8149573,0 19.0608219,4.92454418 19.1989438,9.84908836 Z M3.84,16.3206522 L8.41654984,16.3206522 C13.4936598,16.3206522 15.4959004,13.0401191 15.3528832,9.88576032 C15.2813746,6.85757592 13.2076255,3.76630435 8.41654984,3.76630435 L3.84,3.76630435 L3.84,16.3206522 Z"
+                    id="Shape"></path>
+                  <path
+                    d="M47.5428571,20.0869565 L31.0857143,20.0869565 C31.0857143,13.3697749 31.0857143,6.65259332 31.0857143,0 L47.5428571,0 L47.5428571,3.68153222 L35.1823421,3.68153222 L35.1823421,8.33188872 L47.0484365,8.33188872 L47.0484365,11.8842444 L35.1823421,11.8842444 L35.1823421,16.4054243 L47.5428571,16.4054243 L47.5428571,20.0869565 Z"
+                    id="Shape"></path>
+                  <path
+                    d="M78.6285714,18.0185185 C76.4575467,20.0925926 73.6759213,21 70.6229177,21 C62.7529531,21 59.496416,15.8148148 59.4285714,10.6296296 C59.4285714,5.37962963 62.9564866,0 70.6229177,0 C73.4723877,0 76.1861686,1.03703704 78.3571933,3.11111111 L75.7112569,5.57407407 C74.3543665,4.27777778 72.4547198,3.69444444 70.6229177,3.69444444 C65.5345785,3.69444444 63.2957092,7.32407407 63.3635538,10.6944444 C63.3635538,14.0648148 65.3988894,17.5 70.6229177,17.5 C72.4547198,17.5 74.5579001,16.787037 75.9147905,15.4259259 L78.6285714,18.0185185 Z"
+                    id="Shape"></path>
+                  <path
+                    d="M110.627675,10.565103 C110.561964,15.750145 107.342101,21 100.113838,21 C92.8855743,21 89.6,15.879771 89.6,10.629916 C89.6,5.38006095 93.0169972,0.000579868658 100.113838,0.000579868658 C107.144967,-0.0642331564 110.693387,5.31524793 110.627675,10.565103 Z M93.3125869,10.6565465 C93.3792702,13.8500949 95.2464032,17.2941176 100.114286,17.2941176 C104.982168,17.2941176 106.849301,13.8500949 106.915985,10.6565465 C106.982668,7.40037951 105.048852,3.70588235 100.114286,3.70588235 C95.1797199,3.70588235 93.2459035,7.40037951 93.3125869,10.6565465 Z"
+                    id="Shape"></path>
+                  <polygon id="Shape" points="124.342857 20.0869565 124.342857 0 128 0 128 20.0869565"></polygon>
+                  <polygon id="Shape"
+                    points="156.042802 0 160 0 160 20.0869565 157.585438 20.0869565 157.585438 20.0869565 146.585769 6.52341675 146.585769 20.0869565 142.628571 20.0869565 142.628571 0.0645882846 145.847987 0.0645882846 156.042802 12.5301272">
+                  </polygon>
+                </g>
+                <g id="Group">
+                  <path
+                    d="M22.0875627,32.284127 L22.0875627,23.5749206 L26.215578,23.5749206 L26.215578,18.5195767 L22.0875627,18.5195767 L22.0875627,9.81037037 L32.219964,19.2703704 L36.0263158,15.7166138 L19.2462014,0 L0,21.0222222 L19.2462014,42.0444444 L36.0263158,26.3778836 L32.219964,22.824127 L22.0875627,32.284127 Z M16.5526316,10.5111111 L16.5526316,31.5333333 L6.81578947,20.997136 L16.5526316,10.5111111 Z"
+                    id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+                  <g></g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+    <div class="mainpairmenu" *ngIf="mainPair != null"
+      [ngClass]="{'favpair-open': isMobile ? false : favpairStatus, 'open': pairMenuStatus, 'levegPairActive': isLeveragePairShow}">
+      <ul [@.disabled]="true" class="mainpairmenu-btn">
+        <li *ngIf="!isMobile" matTooltip="{{tooltip}}" matTooltipClass="pairmenu-tooltip"
+          #pairMenuTrigger="matMenuTrigger" matTooltipPosition="right" [matMenuTriggerFor]="menu"
+          (onMenuOpen)="pairMenuOpen()" (onMenuClose)="pairMenuClose()">
+          <a>
+            {{ mainPair.leveragePair ? mainPair.leveragePairName  : mainPair.name }}
+            <span *ngIf="mainPair.leveragePair" class="leveg-txt12"><img alt="" src="assets/images/svg/box-cross.svg">
+              {{ mainPair.leveragePercentage }}</span>
+          </a>
+        </li>
+        <li *ngIf="isMobile" [matMenuTriggerFor]="menu" (onMenuOpen)="pairMenuOpen()" (onMenuClose)="pairMenuClose()">
+          <a>
+            {{ mainPair.leveragePair ? mainPair.leveragePairName  : mainPair.name }}
+            <span *ngIf="mainPair.leveragePair" class="leveg-txt12"><img alt="" src="assets/images/svg/box-cross.svg">
+              {{ mainPair.leveragePercentage }}</span>
+          </a>
+        </li>
+      </ul>
+      <mat-menu #menu="matMenu" class="pair_menu1" [overlapTrigger]="false">
+        <div class="pairs-panel">
+          <div class="pairs-panel-header">
+            <ul class="mkt-list">
+              <!-- <li>
+                <button (click)="$event.stopPropagation()" [class.active]="allPair" (click)="mktClick('')"
+                  type="button">{{'All' | tx}}</button>
+              </li>
+              <li>
+                <button (click)="$event.stopPropagation()" [class.active]="showfavpairs"
+                  (click)="mktClick1('showfavpairs')" type="button">{{'Favo' | tx}}</button>
+              </li> -->
+              <!-- <li>
+                <button [class.active]="showLeveragePair" (click)="$event.stopPropagation()" type="button">
+                  <span class="badge-121 mr-5">Soon</span>
+                  Leverage</button>
+              </li> -->
+              <!-- <li *ngIf="isMobile">
+                <button type="button" (click)="$event.stopPropagation()" [class.active]="activeStatus['BTC']"
+                (click)="mktClick('BTC')">{{'BTC'}}</button>
+              </li> -->
+
+              <li *ngFor="let market of markets, let i = index">
+                <button type="button" (click)="$event.stopPropagation()" [class.active]="activeStatus[market]"
+                  (click)="mktClick(market)">
+                  <!-- <span *ngIf="i === 2" class="badge-121 mr-5">{{ 'New' | tx }}</span> -->
+                  {{ market | tx}}</button>
+              </li>
+
+              <!-- <li *ngIf="isMobile" class="mktmenu-toggle">
+                <button type="button" (click)="$event.stopPropagation()" matTooltipPosition="right"
+                  [matMenuTriggerFor]="mktmenu">
+                  <img src="assets/images/svg/more.svg">
+                </button>
+              </li> -->
+            </ul>
+            <button type="button" class="btn-trans pairsearch-toggle" (click)="pairSearchToggle($event)">
+              <img src="assets/images/svg/search.svg">
+            </button>
+            <div class="dataTables_filter" [ngClass]="{'active': pairSearchStatus}">
+              <img src="assets/images/search-white.svg">
+              <input  type="search" class="" [placeholder]="'SearchTicker' | tx" (click)="$event.stopPropagation()"
+                aria-controls="DataTables_Table_0" [(ngModel)]="market_val" autofocus>
+            </div>
+          </div>
+          <!-- <div class="pair_tblchanger12">
+                  <mat-radio-group [(ngModel)]="pairtblCol">
+                    <mat-radio-button value="1" [checked]="true">Change</mat-radio-button>
+                    <mat-radio-button value="2">Volume</mat-radio-button>
+                  </mat-radio-group>
+                </div>  -->
+          <div class="clearfix"></div>
+          <table class="table1 pairs-table dataTable">
+            <thead>
+              <tr>
+                <th class="pair-star"><i (click)="sortPairTable('fav', 'str',$event)" class=" material-icons"><img
+                      src="assets/images/star1.svg" alt=""></i>
+                </th>
+                <th id="sort_by_name" (click)="sortPairTable('name', 'str',$event)"
+                  [ngClass]="{'sorting_asc': pairSortCol.name.asc, 'sorting_desc': pairSortCol.name.desc}"
+                  class="sorting">
+                  {{'Symbol' | tx}}</th>
+                <th (click)="sortPairTable('rate', 'num',$event)"
+                  [ngClass]="{'sorting_asc': pairSortCol.rate.asc, 'sorting_desc': pairSortCol.rate.desc}"
+                  class="sorting">{{'LastPrice' | tx}}</th>
+                <th *ngIf="!isMobile" (click)="sortPairTable('change', 'percnt',$event)"
+                  [ngClass]="{'sorting_asc': pairSortCol.change.asc, 'sorting_desc': pairSortCol.change.desc}"
+                  class="sorting">
+                  {{'Change' | tx}}</th>
+                <th *ngIf="isMobile" (click)="sortPairTable('change', 'percnt',$event)"
+                  [ngClass]="{'sorting_asc': pairSortCol.change.asc, 'sorting_desc': pairSortCol.change.desc}"
+                  class="sorting">
+                  24h {{'Change' | tx}}</th>
+                <th *ngIf="!isMobile" (click)="sortPairTable('volume', 'num',$event)"
+                  [ngClass]="{'sorting_asc': pairSortCol.volume.asc, 'sorting_desc': pairSortCol.volume.desc}"
+                  class="sorting">
+                  {{'Volume' | tx}}</th>
+                <th *ngIf="isMobile" (click)="sortPairTable('volume', 'num',$event)"
+                  [ngClass]="{'sorting_asc': pairSortCol.volume.asc, 'sorting_desc': pairSortCol.volume.desc}"
+                  class="sorting">
+                  24h {{'Volume' | tx}}</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="!showLeveragePair">
+              <!-- babar -->
+              <ng-container *ngFor="let pair of tradingPairs">
+                <tr *ngIf="pair.Status === 1 && filterFav(pair)" [class.active]="pair === mainPair">
+                  <td class="pair-star">
+                    <i [ngClass]="{'material-icons': true, 'active' : favPairsId.indexOf(pair.id) > -1}"
+                      (mousedown)="switchFav($event, pair, faviconimg)" (click)="$event.stopPropagation()"><img
+                        #faviconimg [src]="(favPairsId.indexOf(pair.id) > -1) ? favicon2 : favicon1" alt=""></i>
+                  </td>
+                  <!-- <td class="fw-500" (click)="changePair(pair)"> {{pair.name}}</td> -->
+                  <td (click)="changePair(pair)" class="fw-500">
+                    {{ pair.leveragePair ? pair.leveragePairName  : pair.name }}
+                    <span class="leveg-txt12" *ngIf="pair.leveragePair">
+                      <img alt="" src="assets/images/svg/box-cross.svg">
+                      {{ pair.leveragePercentage }}</span>
+                  </td>
+                  <td (click)="changePair(pair)">
+                    {{isNotEmpty(pair.rate) ? (pair.rate).toFixedFloor(pair.basePrecision) : 'N/A'}}</td>
+                  <td (click)="changePair(pair)" *ngIf="pair.rate !== undefined && pair.rate > 0"
+                    [ngClass]="{'text-success': pair.rate > pair.prevDayPrice, 'text-danger': pair.rate < pair.prevDayPrice}">
+                    {{(pair.prevDayPrice !== 0 ? ((pair.rate/pair.prevDayPrice)*100 - 100) : 100) | round2}}%</td>
+                  <td (click)="changePair(pair)" *ngIf="pair.rate === undefined || pair.rate === 0">N/A</td>
+                  <td (click)="changePair(pair)">
+                    {{isNotEmpty(pair.volume) ? decimal_format(pair.volume,((isMobile && pair.baseCurrency.symbol === 'USDT') ? 2 : 6)) : 'N/A'}}
+                  </td>
+                </tr>
+
+              </ng-container>
+            </tbody>
+            <tbody *ngIf="showLeveragePair">
+
+            </tbody>
+          </table>
+        </div>
+      </mat-menu>
+      <mat-menu #mktmenu="matMenu" class="mkt-menu" [overlapTrigger]="false">
+        <ul>
+          <li (click)="$event.stopPropagation()" (click)="mktClick('USDT')">
+            <button type="button">{{'USDT' | tx}}</button>
+          </li>
+        </ul>
+      </mat-menu>
+    </div>
+    <!-- {{mainPair}} -->
+    <div class="header-right12" *ngIf="mainPair != null" [ngClass]="{'active': isLogin}">
+      <div class="current-date dn-v2">
+        {{ ((timeNow | date:'yyyy/MM/dd').split('/').join('-')) }}
+        {{ convert_to_24h(timeNow | date:'h:mm:ss a') }}
+      </div>
+      <div class="skintool dn-v2">
+        <button type="button" class="skintool-toggle btn-trans" style="opacity: 0; cursor: default;" data-value="day">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22.391" height="22.391" viewBox="0 0 22.391 22.391">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke: #fff;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2px
+                }
+              </style>
+            </defs>
+            <g id="sun" transform="translate(-1581 -29)">
+              <circle id="Ellipse_348" cx="4.634" cy="4.634" r="4.634" class="cls-1" data-name="Ellipse 348"
+                transform="translate(1587.561 35.561)" />
+              <path id="Line_172" d="M0 0v1.854" class="cls-1" data-name="Line 172"
+                transform="translate(1592.195 30)" />
+              <path id="Line_173" d="M0 0v1.854" class="cls-1" data-name="Line 173"
+                transform="translate(1592.195 48.537)" />
+              <path id="Line_174" d="M0 0l1.316 1.316" class="cls-1" data-name="Line 174"
+                transform="translate(1584.984 32.984)" />
+              <path id="Line_175" d="M0 0l1.316 1.316" class="cls-1" data-name="Line 175"
+                transform="translate(1598.09 46.09)" />
+              <path id="Line_176" d="M0 0h1.854" class="cls-1" data-name="Line 176"
+                transform="translate(1582 40.195)" />
+              <path id="Line_177" d="M0 0h1.854" class="cls-1" data-name="Line 177"
+                transform="translate(1600.537 40.195)" />
+              <path id="Line_178" d="M0 1.316L1.316 0" class="cls-1" data-name="Line 178"
+                transform="translate(1584.984 46.09)" />
+              <path id="Line_179" d="M0 1.316L1.316 0" class="cls-1" data-name="Line 179"
+                transform="translate(1598.09 32.984)" />
+            </g>
+          </svg>
+        </button>
+        <!-- <button type="button" class="skintool-toggle btn-trans" *ngIf="!tversion2" data-value="night">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22.391" height="22.391" viewBox="0 0 22.391 22.391">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke: #080c34;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2px
+                }
+              </style>
+            </defs>
+            <g id="Group_2469" data-name="Group 2469" transform="translate(-1581 -29)">
+              <g id="sun" transform="translate(1581 29)">
+                <circle id="Ellipse_348" cx="4.634" cy="4.634" r="4.634" class="cls-1" data-name="Ellipse 348"
+                  transform="translate(6.561 6.561)" />
+                <path id="Line_172" d="M0 0v1.854" class="cls-1" data-name="Line 172" transform="translate(11.195 1)" />
+                <path id="Line_173" d="M0 0v1.854" class="cls-1" data-name="Line 173"
+                  transform="translate(11.195 19.537)" />
+                <path id="Line_174" d="M0 0l1.316 1.316" class="cls-1" data-name="Line 174"
+                  transform="translate(3.984 3.984)" />
+                <path id="Line_175" d="M0 0l1.316 1.316" class="cls-1" data-name="Line 175"
+                  transform="translate(17.09 17.09)" />
+                <path id="Line_176" d="M0 0h1.854" class="cls-1" data-name="Line 176" transform="translate(1 11.195)" />
+                <path id="Line_177" d="M0 0h1.854" class="cls-1" data-name="Line 177"
+                  transform="translate(19.537 11.195)" />
+                <path id="Line_178" d="M0 1.316L1.316 0" class="cls-1" data-name="Line 178"
+                  transform="translate(3.984 17.09)" />
+                <path id="Line_179" d="M0 1.316L1.316 0" class="cls-1" data-name="Line 179"
+                  transform="translate(17.09 3.984)" />
+              </g>
+            </g>
+          </svg>
+        </button> -->
+      </div>
+      <div class="header-btns">
+        <ul class="menu1">
+          <li *ngIf="!isLogin" class="first"><a [routerLink]="['/login']"
+              [queryParams]="{returnurl: activePair() }">{{'lin' | tx}}</a></li>
+          <li *ngIf="!isLogin"><a [routerLink]="['/signup']">{{'SignUp' | tx}}</a></li>
+          <li *ngIf="isLogin" [ngClass]="{'subMenuShow': subMenuShow}" class="has-submenu">
+            <a [routerLink]="['/account/settings']">
+              <svg class="dn-v2" xmlns="http://www.w3.org/2000/svg" width="28" height="28.001" viewBox="0 0 28 28.001">
+                <g id="account" transform="translate(170 -472)">
+                  <g id="user-avatar-main-picture" transform="translate(-170.001 472)">
+                    <g id="Group_580" data-name="Group 580" transform="translate(.001)">
+                      <path id="Path_1177"
+                        d="M14 0a14 14 0 1 0 14 14A14.016 14.016 0 0 0 14 0zm8.073 21.717v-.552c0-1.909-2.206-2.606-3.387-3.111a56.928 56.928 0 0 1-2.06-.974 1.129 1.129 0 0 1-.562-.811l-.091-.9a3.888 3.888 0 0 0 1.3-2.324h.143a.481.481 0 0 0 .469-.374l.224-1.383a.459.459 0 0 0-.475-.475 5.03 5.03 0 0 0 .072-.567c.014-.126.025-.256.032-.391a3.124 3.124 0 0 0-.27-1.544 3.662 3.662 0 0 0-.861-1.254c-1.093-1.035-2.362-1.439-3.443-.606a2.5 2.5 0 0 0-2.244.95 2.945 2.945 0 0 0-.652 1.322 4.192 4.192 0 0 0-.151 1 4.041 4.041 0 0 0 .1 1.1.463.463 0 0 0-.431.47l.223 1.383a.481.481 0 0 0 .469.374h.128a4.642 4.642 0 0 0 1.31 2.367l-.088.875a1.132 1.132 0 0 1-.563.811c-.8.39-1.587.766-2.059.96-1.111.458-3.387 1.2-3.387 3.111v.426a11.18 11.18 0 1 1 16.253.12z"
+                        fill="#00c896" data-name="Path 1177" transform="translate(-.001)" />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </a>
+            <ul>
+              <li><a [routerLink]="['/account/settings']" class="hd-ac-link">{{'Account' | tx}}</a></li>
+              <li><a (click)="logout()" class="lnk lougoutlink"> {{'LogOut' | tx}}</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="dropdown dropdown12 lang-switcher">
+        <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+          {{CurrentLanguage | uppercase}} <span class="dropdown-icon"> <i class="material-icons"> expand_more</i>
+          </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li *ngFor="let item of languages"><a (click)="changeLanguage(item.Code)">{{item.Name}}</a></li>
+          <!-- <li class="disabled" *ngFor="let item of languages"><a>{{item.Name}}</a></li> -->
+          <!-- <li *ngFor="let item of languages" [ngClass]="{'disabled':item.Code =='ja'}">
+            <a *ngIf="item.Code =='ja'">{{item.Name}}</a>
+            <a *ngIf="item.Code !='ja'" (click)="changeLanguage(item.Code)">{{item.Name}}</a>
+            </li> -->
+          <!-- <li><a href="#" data-code="EN">English</a></li> -->
+          <!-- <li class="disabled"><a href="#" data-code="JA">Japanese</a></li> -->
+        </ul>
+      </div>
+    </div>
+    <!-- Mobiel and inner pages menu -->
+    <div class="main-menu">
+      <div class="main-menu-inner" *ngIf="mainPair">
+        <div class="menu-user" id="account-mob" *ngIf="isLogin">
+          <ul class="menu1">
+            <li [ngClass]="{'subMenuShow': subMenuShow}" class="has-submenu">
+              <a [routerLink]="['/account/settings']">
+                <svg class="dn-v2" xmlns="http://www.w3.org/2000/svg" width="28" height="28.001"
+                  viewBox="0 0 28 28.001">
+                  <g id="account" transform="translate(170 -472)">
+                    <g id="user-avatar-main-picture" transform="translate(-170.001 472)">
+                      <g id="Group_580" data-name="Group 580" transform="translate(.001)">
+                        <path id="Path_1177"
+                          d="M14 0a14 14 0 1 0 14 14A14.016 14.016 0 0 0 14 0zm8.073 21.717v-.552c0-1.909-2.206-2.606-3.387-3.111a56.928 56.928 0 0 1-2.06-.974 1.129 1.129 0 0 1-.562-.811l-.091-.9a3.888 3.888 0 0 0 1.3-2.324h.143a.481.481 0 0 0 .469-.374l.224-1.383a.459.459 0 0 0-.475-.475 5.03 5.03 0 0 0 .072-.567c.014-.126.025-.256.032-.391a3.124 3.124 0 0 0-.27-1.544 3.662 3.662 0 0 0-.861-1.254c-1.093-1.035-2.362-1.439-3.443-.606a2.5 2.5 0 0 0-2.244.95 2.945 2.945 0 0 0-.652 1.322 4.192 4.192 0 0 0-.151 1 4.041 4.041 0 0 0 .1 1.1.463.463 0 0 0-.431.47l.223 1.383a.481.481 0 0 0 .469.374h.128a4.642 4.642 0 0 0 1.31 2.367l-.088.875a1.132 1.132 0 0 1-.563.811c-.8.39-1.587.766-2.059.96-1.111.458-3.387 1.2-3.387 3.111v.426a11.18 11.18 0 1 1 16.253.12z"
+                          fill="#00c896" data-name="Path 1177" transform="translate(-.001)" />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </a>
+              <ul>
+                <li><a [routerLink]="['/account/settings']" class="hd-ac-link">{{'Account' | tx}}</a></li>
+                <li><a (click)="logout()" class="lnk lougoutlink"> {{'LogOut' | tx}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-toggle1" (click)="menuToggle()">
+          <svg class="bars" id="Group_3377" data-name="Group 3377" xmlns="http://www.w3.org/2000/svg" width="24.096"
+            height="21.549" viewBox="0 0 24.096 21.549">
+            <rect id="Rectangle_1805" data-name="Rectangle 1805" fill="#fff" width="23.618" height="3"
+              transform="translate(0.477 18.549)" />
+            <rect id="Rectangle_1806" data-name="Rectangle 1806" fill="#fff" width="24.095" height="3"
+              transform="translate(0 0)" />
+            <rect id="Rectangle_1807" data-name="Rectangle 1807" fill="#fff" width="23.983" height="3"
+              transform="translate(0.112 9.274)" />
+          </svg>
+          <svg class="cross" xmlns="http://www.w3.org/2000/svg" width="20.496" height="20.494"
+            viewBox="0 0 20.496 20.494">
+            <g id="Group_2448" data-name="Group 2448" transform="translate(-1.856 -0.527)">
+              <g id="Group_2585" data-name="Group 2585">
+                <rect id="Rectangle_1807" data-name="Rectangle 1807" fill="#fff" width="25.983" height="3"
+                  transform="translate(3.978 0.527) rotate(45)" />
+                <rect id="Rectangle_2017" data-name="Rectangle 2017" fill="#fff" width="25.983" height="3"
+                  transform="translate(22.351 2.648) rotate(135)" />
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="main-menu-inner" *ngIf="!mainPair">
+        <div class="menu-user" id="account-mob" *ngIf="isLogin">
+          <a [routerLink]="['/account/settings']">
+            <svg class="dn-v2" xmlns="http://www.w3.org/2000/svg" width="28" height="28.001" viewBox="0 0 28 28.001">
+              <g id="account" transform="translate(170 -472)">
+                <g id="user-avatar-main-picture" transform="translate(-170.001 472)">
+                  <g id="Group_580" data-name="Group 580" transform="translate(.001)">
+                    <path id="Path_1177"
+                      d="M14 0a14 14 0 1 0 14 14A14.016 14.016 0 0 0 14 0zm8.073 21.717v-.552c0-1.909-2.206-2.606-3.387-3.111a56.928 56.928 0 0 1-2.06-.974 1.129 1.129 0 0 1-.562-.811l-.091-.9a3.888 3.888 0 0 0 1.3-2.324h.143a.481.481 0 0 0 .469-.374l.224-1.383a.459.459 0 0 0-.475-.475 5.03 5.03 0 0 0 .072-.567c.014-.126.025-.256.032-.391a3.124 3.124 0 0 0-.27-1.544 3.662 3.662 0 0 0-.861-1.254c-1.093-1.035-2.362-1.439-3.443-.606a2.5 2.5 0 0 0-2.244.95 2.945 2.945 0 0 0-.652 1.322 4.192 4.192 0 0 0-.151 1 4.041 4.041 0 0 0 .1 1.1.463.463 0 0 0-.431.47l.223 1.383a.481.481 0 0 0 .469.374h.128a4.642 4.642 0 0 0 1.31 2.367l-.088.875a1.132 1.132 0 0 1-.563.811c-.8.39-1.587.766-2.059.96-1.111.458-3.387 1.2-3.387 3.111v.426a11.18 11.18 0 1 1 16.253.12z"
+                      fill="#00c896" data-name="Path 1177" transform="translate(-.001)" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </a>
+        </div>
+        <div class="menu-toggle1 without-trade" (click)="menuToggle()">
+          <svg class="bars" data-name="Group 3377" height="21.549" id="Group_3377" viewBox="0 0 24.096 21.549"
+            width="24.096" xmlns="http://www.w3.org/2000/svg">
+            <rect data-name="Rectangle 1805" fill="#fff" height="3" id="Rectangle_1805"
+              transform="translate(0.477 18.549)" width="23.618"></rect>
+            <rect data-name="Rectangle 1806" fill="#fff" height="3" id="Rectangle_1806" transform="translate(0 0)"
+              width="24.095"></rect>
+            <rect data-name="Rectangle 1807" fill="#fff" height="3" id="Rectangle_1807"
+              transform="translate(0.112 9.274)" width="23.983"></rect>
+          </svg>
+
+          <svg class="cross" height="20.494" viewBox="0 0 20.496 20.494" width="20.496"
+            xmlns="http://www.w3.org/2000/svg">
+            <g data-name="Group 2448" id="Group_2448" transform="translate(-1.856 -0.527)">
+              <g data-name="Group 2585" id="Group_2585">
+                <rect data-name="Rectangle 1807" fill="#fff" height="3" id="Rectangle_1807"
+                  transform="translate(3.978 0.527) rotate(45)" width="25.983"></rect>
+                <rect data-name="Rectangle 2017" fill="#fff" height="3" id="Rectangle_2017"
+                  transform="translate(22.351 2.648) rotate(135)" width="25.983"></rect>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="nav">
+        <ul *ngIf="!isLogin" class="menu2  notLogin-ul">
+          <!-- <li class="visible-md-down acct-btns">
+            <div class="acct-btn-item sep">
+              <a [routerLink]="['/login']" [queryParams]="{returnurl: activePair() }">{{'LoginJoin' | tx}}</a>
+            </div>
+            <div *ngIf="mainPair" class="acct-btn-item">
+              <a [routerLink]="['/signup']">{{'SignUp' | tx}}</a>
+            </div>
+            <div *ngIf="!mainPair" class="acct-btn-item">
+              <a [routerLink]="['/signup']">{{'SignupJoin' | tx}}</a>
+            </div>
+          </li> -->
+          <li *ngIf="isMobile" class="d-flex">
+            <a [routerLink]="['/login']" [queryParams]="{returnurl: activePair() }">{{'lin' | tx}}</a>
+            <a [routerLink]="['/signup']">{{'SignUp' | tx}}</a>
+            <!-- <div *ngIf="mainPair" class="visible-md-down skin-lang">
+                <div class="dropdown dropdown12 lang-switcher">
+                  <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+                    {{CurrentLanguage | uppercase}} <span class="dropdown-icon"> <i class="material-icons">
+                        expand_more</i>
+                    </span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                    <li class="disabled" *ngFor="let item of languages">
+                      <a>{{item.Name}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+
+          </li>
+          <li *ngIf="mainPair"><a href="/">{{'Home' | tx}}</a></li>
+          <li *ngIf="!mainPair" class="left"><a [routerLink]="['/',selectPair()]" (click)="menuToggle()">
+              <span class="header-exchange-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22.628" height="22.628" viewBox="0 0 22.628 22.628">
+                  <defs>
+                    <style>
+                      .cls1-h {
+                        fill: #00c896
+                      }
+                    </style>
+                  </defs>
+                  <path id="Union_43" d="M12.072 16V3.929H8V0h8v16zM0 16V0h3.929v12.072H8V16z" class="cls1-h"
+                    data-name="Union 43" transform="rotate(-45 13.657 5.657)" />
+                </svg>
+              </span>{{'Exchange' | tx}}</a></li>
+          <li><a [routerLink]="['/buy-sell-crypto']"><span class="header-crypto-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18">
+                  <defs>
+                    <style>
+                      .cls1-card {
+                        fill: none;
+                        stroke: #00c896;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-width: 2px
+                      }
+                    </style>
+                  </defs>
+                  <g id="credit-card_1_" data-name="credit-card (1)" transform="translate(0 -3)">
+                    <rect id="Rectangle_3637" width="22" height="16" class="cls1-card" data-name="Rectangle 3637" rx="2"
+                      transform="translate(1 4)" />
+                    <path id="Line_702" d="M0 0h22" class="cls1-card" data-name="Line 702"
+                      transform="translate(1 10)" />
+                  </g>
+                </svg>
+              </span>{{'BuyCrypto' | tx}}</a> </li>
+          <li><a href="../{{CurrentLanguage}}/aboutus">{{'AboutUs' | tx}}</a></li>
+          <li><a href="../{{CurrentLanguage}}/security">{{'Security' | tx}}</a></li>
+          <li><a href="../{{CurrentLanguage}}/support">{{'Support' | tx}}</a></li>
+        </ul>
+        <ul *ngIf="isLogin" class="menu2">
+          <!-- <li *ngIf="mainPair" class="visible-md-down acct-btns">
+            <div class="current-date dn-v2">
+              <span>{{ ((timeNow | date:'yyyy/MM/dd').split('/').join('-')) }}</span>
+              {{ convert_to_24h(timeNow | date:'h:mm:ss a') }}
+            </div>
+
+          </li> -->
+          <li class="md-down-show ">
+            <a (click)="logout()">{{'LogoutJoin' | tx}}</a>
+          </li>
+          <li class="left" *ngIf="!mainPair"><a [routerLink]="['/',selectPair()]" (click)="menuToggle()">
+              <span class="header-exchange-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22.628" height="22.628" viewBox="0 0 22.628 22.628">
+                  <defs>
+                    <style>
+                      .cls1-h {
+                        fill: #00c896
+                      }
+                    </style>
+                  </defs>
+                  <path id="Union_43" d="M12.072 16V3.929H8V0h8v16zM0 16V0h3.929v12.072H8V16z" class="cls1-h"
+                    data-name="Union 43" transform="rotate(-45 13.657 5.657)" />
+                </svg>
+              </span>{{'Exchange' | tx}}</a>
+          </li>
+          <li><a [routerLink]="['/buy-sell-crypto']"><span class="header-crypto-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18">
+                  <defs>
+                    <style>
+                      .cls1-card {
+                        fill: none;
+                        stroke: #00c896;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-width: 2px
+                      }
+                    </style>
+                  </defs>
+                  <g id="credit-card_1_" data-name="credit-card (1)" transform="translate(0 -3)">
+                    <rect id="Rectangle_3637" width="22" height="16" class="cls1-card" data-name="Rectangle 3637" rx="2"
+                      transform="translate(1 4)" />
+                    <path id="Line_702" d="M0 0h22" class="cls1-card" data-name="Line 702"
+                      transform="translate(1 10)" />
+                  </g>
+                </svg>
+              </span>{{'BuyCrypto' | tx }}</a></li>
+          <li class="left" *ngIf="isMobile && mainPair"><a href="/">{{'Home' | tx}}</a></li>
+          <li [ngClass]="{'open': submenuExpStatus[1]}" (click)="submenuExpand('1')">
+            <a>{{'Wallets' | tx}}</a>
+            <div *ngIf="isMobile" class="menu-expand">
+              <i class="material-icons add-icon" [hidden]="submenuExpStatus[1]">add circle</i>
+              <i class="material-icons remove-icon" [hidden]="!submenuExpStatus[1]">remove circle</i>
+            </div>
+            <ul [hidden]="isMobile ? !submenuExpStatus[1] : ''">
+              <li><a [routerLink]="['/balances']">{{'Balances' | tx}}</a></li>
+              <li><a [routerLink]="['/withdraw']">{{'Withdraw' | tx}}</a></li>
+              <li><a [routerLink]="['/deposit']">{{'Deposit' | tx}}</a></li>
+              <li><a [routerLink]="['/history']">{{'TransactionsHistory' | tx}}</a></li>
+              <li><a [routerLink]="['/distribution-history']">{{'DistributionHistory' | tx}}</a></li>
+            </ul>
+          </li>
+          <li [ngClass]="{'open': submenuExpStatus[2]}" (click)="submenuExpand('2')">
+            <a>{{'Activity' | tx}}</a>
+            <div *ngIf="isMobile" class="menu-expand">
+              <i class="material-icons add-icon" [hidden]="submenuExpStatus[2]">add circle</i>
+              <i class="material-icons remove-icon" [hidden]="!submenuExpStatus[2]">remove circle</i>
+            </div>
+            <ul [hidden]="isMobile ? !submenuExpStatus[2] : ''">
+              <li><a (click)="hideMobileMenu()" [routerLink]="['/orders/open-orders']">{{'OpenOrders' | tx}}</a></li>
+              <li><a (click)="hideMobileMenu()" [routerLink]="['/orders/orders-history']">{{'OrderHistory' | tx}}</a>
+              </li>
+              <li><a (click)="hideMobileMenu()" [routerLink]="['/orders/trade-history']">{{'TradeHistory' | tx}}</a>
+              </li>
+            </ul>
+          </li>
+          <li><a href="../{{CurrentLanguage}}/support">{{'Support' | tx}}</a></li>
+        </ul>
+        <div *ngIf="mainPair" class="visible-md-down skin-lang">
+          <!-- <div class="skintool dn-v2">
+            <button type="button" class="skintool-toggle btn-trans" data-value="day">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 22.391 22.391">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: none;
+                      stroke: #fff;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-width: 2px
+                    }
+                  </style>
+                </defs>
+                <g id="sun" transform="translate(-1581 -29)">
+                  <circle id="Ellipse_348" cx="4.634" cy="4.634" r="4.634" class="cls-1" data-name="Ellipse 348"
+                    transform="translate(1587.561 35.561)" />
+                  <path id="Line_172" d="M0 0v1.854" class="cls-1" data-name="Line 172"
+                    transform="translate(1592.195 30)" />
+                  <path id="Line_173" d="M0 0v1.854" class="cls-1" data-name="Line 173"
+                    transform="translate(1592.195 48.537)" />
+                  <path id="Line_174" d="M0 0l1.316 1.316" class="cls-1" data-name="Line 174"
+                    transform="translate(1584.984 32.984)" />
+                  <path id="Line_175" d="M0 0l1.316 1.316" class="cls-1" data-name="Line 175"
+                    transform="translate(1598.09 46.09)" />
+                  <path id="Line_176" d="M0 0h1.854" class="cls-1" data-name="Line 176"
+                    transform="translate(1582 40.195)" />
+                  <path id="Line_177" d="M0 0h1.854" class="cls-1" data-name="Line 177"
+                    transform="translate(1600.537 40.195)" />
+                  <path id="Line_178" d="M0 1.316L1.316 0" class="cls-1" data-name="Line 178"
+                    transform="translate(1584.984 46.09)" />
+                  <path id="Line_179" d="M0 1.316L1.316 0" class="cls-1" data-name="Line 179"
+                    transform="translate(1598.09 32.984)" />
+                </g>
+              </svg>
+              <span>{{'DayMode' | tx}}</span>
+            </button>
+          </div> -->
+          <div class="dropdown dropdown12 lang-switcher">
+            <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+              {{CurrentLanguage | uppercase}} <span class="dropdown-icon"> <i class="material-icons"> expand_more</i>
+              </span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li *ngFor="let item of languages"><a (click)="changeLanguage(item.Code)">{{ item.Name }}</a></li>
+              <!-- <li *ngFor="let item of languages" [ngClass]="{'disabled':item.Code =='ja'}">
+                <a *ngIf="item.Code =='ja'">{{item.Name}}</a>
+                <a *ngIf="item.Code !='ja'" (click)="changeLanguage(item.Code)">{{item.Name}}</a>
+              </li> -->
+              <!-- <li class="disabled" *ngFor="let item of languages">
+                <a>{{item.Name}}</a>
+              </li> -->
+              <!-- <li><a href="#" data-code="EN">English</a></li> -->
+              <!-- <li class="disabled"><a href="#" data-code="JA">Japanese</a></li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <ul class="log-sign hidden-md-down menu1 inner-header" [class.active]="isLogin">
+        <li *ngIf="!isLogin"><a [routerLink]="['/login']" [queryParams]="{returnurl: activePair() }">{{'lin' | tx}}</a>
+        </li>
+        <li *ngIf="!isLogin" class=""><a [routerLink]="['/signup']" [queryParams]="{returnurl: signupReturnUrl() }"
+            class="">{{'SignUp' | tx}}</a>
+        </li>
+        <li *ngIf="isLogin" [ngClass]="{'subMenuShow': subMenuShow}">
+          <a [routerLink]="['/account/settings']">
+            <svg class="dn-v2" xmlns="http://www.w3.org/2000/svg" width="28" height="28.001" viewBox="0 0 28 28.001">
+              <g id="account" transform="translate(170 -472)">
+                <g id="user-avatar-main-picture" transform="translate(-170.001 472)">
+                  <g id="Group_580" data-name="Group 580" transform="translate(.001)">
+                    <path id="Path_1177"
+                      d="M14 0a14 14 0 1 0 14 14A14.016 14.016 0 0 0 14 0zm8.073 21.717v-.552c0-1.909-2.206-2.606-3.387-3.111a56.928 56.928 0 0 1-2.06-.974 1.129 1.129 0 0 1-.562-.811l-.091-.9a3.888 3.888 0 0 0 1.3-2.324h.143a.481.481 0 0 0 .469-.374l.224-1.383a.459.459 0 0 0-.475-.475 5.03 5.03 0 0 0 .072-.567c.014-.126.025-.256.032-.391a3.124 3.124 0 0 0-.27-1.544 3.662 3.662 0 0 0-.861-1.254c-1.093-1.035-2.362-1.439-3.443-.606a2.5 2.5 0 0 0-2.244.95 2.945 2.945 0 0 0-.652 1.322 4.192 4.192 0 0 0-.151 1 4.041 4.041 0 0 0 .1 1.1.463.463 0 0 0-.431.47l.223 1.383a.481.481 0 0 0 .469.374h.128a4.642 4.642 0 0 0 1.31 2.367l-.088.875a1.132 1.132 0 0 1-.563.811c-.8.39-1.587.766-2.059.96-1.111.458-3.387 1.2-3.387 3.111v.426a11.18 11.18 0 1 1 16.253.12z"
+                      fill="#00c896" data-name="Path 1177" transform="translate(-.001)" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </a>
+          <ul>
+            <li><a [routerLink]="['/account/settings']" class="hd-ac-link">{{'Account' | tx}}</a></li>
+
+            <!-- <li><a [routerLink]="['/account/settings']"><i class="material-icons">build</i> Account Settings</a></li> -->
+            <!-- <li><a [routerLink]="['/account/update-info']"><i class="material-icons">person</i> Account Info</a></li> -->
+            <!-- <li><a [routerLink]="['/invite']"><i><img src="assets/images/user.svg" alt=""></i> Invite</a></li> -->
+            <!-- <li><a [routerLink]="['/kyc']"><i class="material-icons">security</i> Account Verification</a></li> -->
+            <!-- launch uncomment -->
+            <!-- <li><a [routerLink]="['/apikeys/management']"><i class="material-icons">vpn_key</i> Api Keys Management</a>
+              </li> -->
+            <!-- <li><a [routerLink]="['/account/change-password']"><i class="material-icons">lock </i> Change Password</a>
+              </li> -->
+            <!-- <li><a href=""><i class="material-icons">settings</i> Advance Settings</a></li> -->
+            <li><a (click)="logout()" class="lnk lougoutlink"> {{'LogOut' | tx}}</a></li>
+            <!-- <li><a (click)="logout()" class="lnk"><i class="material-icons">power_settings_new</i> Logout</a></li> -->
+          </ul>
+        </li>
+      </ul>
+      <div class="dropdown dropdown12 lang-switcher">
+        <button class="dropdown-toggle" type="button" data-toggle="dropdown">
+          {{CurrentLanguage | uppercase}} <span class="dropdown-icon"> <i class="material-icons"> expand_more</i>
+          </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li *ngFor="let item of languages"><a (click)="changeLanguage(item.Code)">{{item.Name}}</a></li>
+          <!-- <li *ngFor="let item of languages" [ngClass]="{'disabled':item.Code =='ja'}">
+            <a *ngIf="item.Code =='ja'">{{item.Name}}</a>
+            <a *ngIf="item.Code !='ja'" (click)="changeLanguage(item.Code)">{{item.Name}}</a>
+          </li> -->
+          <!-- <li class="disabled" *ngFor="let item of languages">
+            <a>{{item.Name}}</a>
+          </li> -->
+          <!-- <li><a href="#" data-code="EN">English</a></li> -->
+          <!-- <li class="disabled"><a href="#" data-code="JA">Japanese</a></li> -->
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</header>

@@ -1,0 +1,89 @@
+
+.trade-html
+{
+    min-height: 100%;
+    position: relative;
+}
+
+.buySell-btns
+{
+    position: fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:10px !important;
+    margin:0;
+    z-index: 9999;
+    background-color: #171717;
+    text-align: center;
+}
+.buySell-btns.down{
+    position: absolute;
+}
+.buySell-btns li
+{
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(255,255,255,0.6);
+}
+.buySell-btns li:before
+{  
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom: 8px solid #fff;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+}
+.buySell-btns li:after
+{  
+    content: "";
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-right: 1px solid #979797;
+}
+.buySell-btns li button
+{
+    font-size:0.78rem;
+    background-color: transparent;
+    border: 0;
+    padding: 2px 10px;
+    min-width: 53px;
+}
+.buySell-btns li.popup-close
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #1717178c;
+    width: 100%;
+    color: #fff;
+    text-align: right;
+    display: none;
+}
+.buySell-btns li.popup-close span
+{
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    display: inline-block;
+    text-align: center;
+    color: #09c;
+    line-height: 27px;
+    font-size: 20px;
+    border-radius: 20px;
+}
+    
+    
+
+
+    

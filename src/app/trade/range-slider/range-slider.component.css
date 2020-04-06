@@ -1,0 +1,101 @@
+.c2-slider-bar {
+    height: 3px;
+    width: 100%;
+    background: #3d405f;    
+    position: relative;    
+  }
+  .c2-filled-bar {
+    height: 100%;
+    max-width: 100%;
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    background: #1dd1cb;
+    transition: width 0.05s linear;
+  }
+  .c2-movable-thumb-dot {
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    cursor: pointer;
+    transition: left 0.05s linear;
+    z-index: 999;
+  }
+  .c2-movable-thumb-dot-static {
+    height: 9px;
+    width: 9px;
+    background: #3d405f;
+    position: absolute;
+    border-radius: 99999px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    cursor: pointer;
+    transition: left 0.05s linear;
+  }
+  .c2-thumb-value{
+    height: auto;
+    width: auto;
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 1px 5px;
+    border-radius: 2px;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+    font-size: 12px;
+  }
+  .buy.c2-thumb-value{
+    background:#00c896;  
+  }
+  .sell.c2-thumb-value{
+    background:#fc4c4c;  
+  }
+  
+  .c2-thumb-value:after{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -1px;
+    transform: translateX(-50%);
+    border-width: 4px 3.5px 0;
+    border-style: solid;
+    border-color: transparent;
+  }
+  .buy.c2-thumb-value:after{
+    border-top-color: #00c893;
+  }
+  .sell.c2-thumb-value:after{
+      border-top-color: #fc4c4c;
+  }
+  .c2-thumb-value.c2-hide {
+    display: none;
+  }
+  .c2-thumb-value.hide-completely {
+    display: none;
+  }
+  .overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: transparent;
+    z-index: -2;
+  }
+  .overlay.c2-hide {
+    display: none;
+  }  
+
+  .range-slider-parent{
+    margin: 14px 9px 30px 80px;
+  }

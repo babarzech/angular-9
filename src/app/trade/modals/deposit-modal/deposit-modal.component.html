@@ -1,0 +1,35 @@
+<a class="close-btn" (click)="closeModal()"><i class="material-icons">close</i></a>
+<!-- <div class="modal-container">
+    <h5 class="text-center nomarg darkhead">Deposit</h5>
+    <h6 class="margtop30 darkhead">Deposit {{mainPair ? mainPair.baseCurrency.name : ''}}</h6>
+    <input type="hidden" [(ngModel)]="baseAddress"/>
+    <div ngxClipboard [cbContent]="baseAddress" class="coin_address waves-effect waves-dark" *ngIf="!mainPair.baseCurrency.isFiat" matTooltipPosition="above" matTooltip="Click to copy {{mainPair ? mainPair.baseCurrency.name : ''}} Address!">{{mainPair ? wallets[mainPair.baseCurrency.id] ? wallets[mainPair.baseCurrency.id].address : 'Generating Address...' : 'Loading...'}}<i class="material-icons">content_copy</i></div>
+    <div class="separator light"></div>
+    <h6 class="margtop30 darkhead">Deposit {{mainPair ? mainPair.marketCurrency.name : ''}}</h6>
+    <input type="hidden" [(ngModel)]="marketAddress"/>
+    <div ngxClipboard [cbContent]="marketAddress" class="coin_address waves-effect waves-dark" *ngIf="!mainPair.marketCurrency.isFiat" matTooltipPosition="above" matTooltip="Click to copy {{mainPair ? mainPair.marketCurrency.name : ''}} Address!">{{mainPair ? wallets[mainPair.marketCurrency.id] ? wallets[mainPair.marketCurrency.id].address : 'Generating Address...' : 'Loading...'}}<i class="material-icons">content_copy</i></div>
+</div> -->
+<div class="modal-container text-center">
+  <h5 class="darkhead">{{'Deposit' | tx}} {{currency.name}}</h5>
+  <div class="modal-body">
+    <div class="coin_address_wrap">
+      <h6>{{'YourWalletAddress' | tx}}</h6>
+      <div class="coin_address">
+        {{wallets[currency.id].address ? wallets[currency.id].address : 'Loading...'}}
+        <button class="clipbord-btn" ngxClipboard [cbContent]="wallets[currency.id].address"><i
+            class="material-icons">content_copy</i></button>
+      </div>
+    </div>
+    <div class="qrcode">
+      <span>{{'ORCap' | tx}}</span>
+      <p>{{'QRcodescanner' | tx}}</p>
+      <img *ngIf="wallets[currency.id].address"
+        src="https://chart.googleapis.com/chart?chs=250x250&amp;cht=qr&amp;chl={{wallets[currency.id].address}}"
+        alt="qrcode">
+    </div>
+    <div *ngIf="wallets[currency.id].isMemo" class="coin_address_wrap">
+      <p style=" color: #c00; font-weight: 600; ">{{'Youmustha' | tx}}</p><br />
+      <div class="coin_address">{{'Memo' | tx}}: {{wallets[currency.id].memo}}</div>
+    </div>
+  </div>
+</div>

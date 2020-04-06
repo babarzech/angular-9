@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="13.302" height="13.301" viewBox="0 0 13.302 13.301">
+  <g id="loader" transform="translate(-1.39 4.496) rotate(-30)">
+    <line id="Line_12" data-name="Line 12" y2="2.354" transform="translate(5.886)" fill="none" stroke="#00c896" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_13" data-name="Line 13" y2="2.354" transform="translate(5.886 9.418)" fill="none" stroke="#00c896" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_14" data-name="Line 14" x2="1.666" y2="1.666" transform="translate(1.725 1.725)" fill="none" stroke="#00c896" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_15" data-name="Line 15" x2="1.666" y2="1.666" transform="translate(8.382 8.382)" fill="none" stroke="#00c896" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_16" data-name="Line 16" x2="2.354" transform="translate(0 5.886)" fill="none" stroke="#00c896" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_17" data-name="Line 17" x2="2.354" transform="translate(9.418 5.886)" fill="none" stroke="#00c896" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_18" data-name="Line 18" y1="1.666" x2="1.666" transform="translate(1.725 8.382)" fill="none" stroke="#00c896" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <line id="Line_19" data-name="Line 19" y1="1.666" x2="1.666" transform="translate(8.382 1.725)" fill="none" stroke="#00c896" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>

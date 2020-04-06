@@ -1,0 +1,29 @@
+<div class="modal-container">
+
+  <div class="modal-header">
+    <button (click)="closeModal()" class="close" type="button">
+      <i class="material-icons">close</i>
+    </button>
+    <h5>{{'Confirm' | tx}}</h5>
+  </div>
+  <div class="modal-body">
+    <form #form="ngForm" (ngSubmit)="onSubmit()" autocomplete="off" class="form1">
+      <label>{{'NewRate' | tx}}:</label>
+      <div class="input-field">
+        <input [(ngModel)]="model.Rate" [min]="stepAndMinRate" [step]="stepAndMinRate" name="Rate" readonly
+          type="number" />
+      </div>
+      <label>{{'Amount' | tx}}:</label>
+      <div class="input-field">
+        <input [(ngModel)]="model.Quantity" [min]="stepAndMInQty" [step]="stepAndMInQty" name="Quantity"
+          type="number" />
+      </div>
+      <mat-checkbox (change)="dntShowPopup($event)" [checked]="dontShowAgain">{{'Dontshowagain' | tx}}
+      </mat-checkbox>
+      <div class="btns">
+        <button (click)="onSubmit()" color="accent" mat-raised-button type="submit">{{'Confirm' | tx}}</button>
+        <button (click)="closeModal()" color="warn" mat-raised-button>{{'Cancel' | tx}}</button>
+      </div>
+    </form>
+  </div>
+</div>

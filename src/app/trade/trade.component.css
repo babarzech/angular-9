@@ -1,0 +1,35 @@
+html,body
+{
+  overflow: hidden;
+}
+app-trade .header .container
+{
+  padding:0 130px 0 20px;
+}
+.table1 tbody td .tr-span {
+  z-index: 0;
+
+}
+.table1 tbody td{
+  position: relative;
+  
+}
+#div1, #div2 {
+  background-color: white;
+  float: left;
+  width: 100px;
+  height: 35px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid red;
+}
+.dragger_of_td {
+   cursor: move !important; 
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+  supported by Chrome, Opera and Firefox */
+}

@@ -1,0 +1,13 @@
+<svg id="dash" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20.424" height="20.424" viewBox="0 0 20.424 20.424">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-0.111" y1="-0.073" x2="1.155" y2="1.128" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#3c7efc"/>
+      <stop offset="1" stop-color="#0044b2"/>
+    </linearGradient>
+  </defs>
+  <rect id="Rectangle_3" data-name="Rectangle 3" width="20.424" height="20.424" rx="10.212" fill="url(#linear-gradient)"/>
+  <g id="Group" transform="translate(3.97 6.24)">
+    <path id="Shape" d="M12.649,1.182a1.387,1.387,0,0,0-.183-.611A.87.87,0,0,0,12,.153a1.358,1.358,0,0,0-.652-.144H2.9L2.29,1.839H9.951l-1.21,3.74H1.082L.476,7.409h8.5a2.331,2.331,0,0,0,.741-.144,5,5,0,0,0,.741-.467,3.66,3.66,0,0,0,.606-.611,4.16,4.16,0,0,0,.373-.7l1.122-3.556A1.328,1.328,0,0,0,12.649,1.182Z" transform="translate(-0.185 -0.009)" fill="#fff"/>
+    <path id="Shape-2" data-name="Shape" d="M5.315,4.787H.635L.006,6.541H4.733Z" transform="translate(-0.006 -1.966)" fill="#fff"/>
+  </g>
+</svg>

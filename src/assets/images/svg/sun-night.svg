@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.391" height="22.391" viewBox="0 0 22.391 22.391">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#080c34;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="Group_2469" data-name="Group 2469" transform="translate(-1581 -29)">
+        <g id="sun" transform="translate(1581 29)">
+            <circle id="Ellipse_348" cx="4.634" cy="4.634" r="4.634" class="cls-1" data-name="Ellipse 348" transform="translate(6.561 6.561)"/>
+            <path id="Line_172" d="M0 0v1.854" class="cls-1" data-name="Line 172" transform="translate(11.195 1)"/>
+            <path id="Line_173" d="M0 0v1.854" class="cls-1" data-name="Line 173" transform="translate(11.195 19.537)"/>
+            <path id="Line_174" d="M0 0l1.316 1.316" class="cls-1" data-name="Line 174" transform="translate(3.984 3.984)"/>
+            <path id="Line_175" d="M0 0l1.316 1.316" class="cls-1" data-name="Line 175" transform="translate(17.09 17.09)"/>
+            <path id="Line_176" d="M0 0h1.854" class="cls-1" data-name="Line 176" transform="translate(1 11.195)"/>
+            <path id="Line_177" d="M0 0h1.854" class="cls-1" data-name="Line 177" transform="translate(19.537 11.195)"/>
+            <path id="Line_178" d="M0 1.316L1.316 0" class="cls-1" data-name="Line 178" transform="translate(3.984 17.09)"/>
+            <path id="Line_179" d="M0 1.316L1.316 0" class="cls-1" data-name="Line 179" transform="translate(17.09 3.984)"/>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,246 @@
+<div class="tab-content">
+  <div class="col-lg-6" *ngFor="let ordrType of orderType">
+    <form class="form1" #form="ngForm" autocomplete="off" (ngSubmit)="onSubmit(ordrType, form)"
+      [ngClass]="ordrType === 'Buy' ? 'buy' : 'sell'">
+      <h6>{{ordrType | tx}} <span class="mCurency-name">
+          {{mainPair ? mainPair.marketCurrency.symbol : ''}} </span>
+        <div class="small-info"><span>{{'Balance' | tx}}:</span> {{getBalance(ordrType)}}</div>
+      </h6>
+      
+      <div class="input-field-wrap">
+        <label *ngIf="!isMobileTrade">{{'Stop' | tx}}:</label>
+        <label *ngIf="isMobileTrade">{{'Stop' | tx}} {{mainPair ? mainPair.baseCurrency.symbol : ''}}:</label>
+        <div class="input-field">
+          <div class="input-inner input-qty">
+            <button (click)="amountChange('s',ordrType, false)" class="input-qtyBtn" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="1.293" viewBox="0 0 10 1.293">
+                <rect id="Rectangle_6" data-name="Rectangle 6" fill="#fff" width="1.293" height="10" rx="0.647"
+                  transform="translate(10) rotate(90)" />
+              </svg>
+            </button>
+
+            <input (click)="setCursorPosition()" focus-elm="stp" [type]="isMobileTrade ? 'text' : 'number'" [(ngModel)]="model[ordrType].Stop"
+              name="Stop" [step]="stepAndMinRate" [min]="stepAndMinRate" (keypress)="decimalValidator($event)"
+              (input)="inputChange(ordrType, ordrType === 'Buy', 'r',$event)" (paste)="pasteRestriction($event,'r')"
+              (focus)="onFocus($event)" />
+
+            <button (click)="amountChange('s',ordrType, true)" class="input-qtyBtn" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+                <path id="Combined_Shape" data-name="Combined Shape" fill="#fff"
+                  d="M4.375,9.374V5.625H.625a.625.625,0,0,1,0-1.25h3.75V.625a.625.625,0,0,1,1.25,0v3.75H9.374a.625.625,0,1,1,0,1.25H5.625V9.374a.625.625,0,1,1-1.25,0Z" />
+              </svg>
+            </button>
+            <div class="input-spin-btn dn-v2"></div>
+            <span #inputRateTip class="inputTiphidden dn-v2">{{model[ordrType].Stop}}</span>
+            <div *ngIf="model[ordrType].Stop" #rateTip class="input-tooltip dn-v2"
+              [ngStyle]="model[ordrType].Stop ? {'left': (inputRateTip.offsetWidth - rateTip.offsetWidth/2).toFixed(0) +'px', 'opacity': 1} : ''">
+              <span
+                *ngIf="!isMobileTrade">${{ dollarPrice(ordrType,'Stop') }}</span>
+            </div>
+          </div>
+          <div class="suffix">{{mainPair ? mainPair.baseCurrency.symbol : ''}}</div>
+        </div>
+      </div>
+
+      <div class="input-field-wrap">
+        <label *ngIf="!isMobileTrade">{{'Price' | tx}}:</label>
+        <label *ngIf="isMobileTrade">{{'Price' | tx}} {{mainPair ? mainPair.baseCurrency.symbol : ''}}:</label>
+        <div class="input-field">
+          <div class="input-inner input-qty">
+            <button (click)="amountChange('r',ordrType, false)" class="input-qtyBtn" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="1.293" viewBox="0 0 10 1.293">
+                <rect id="Rectangle_6" data-name="Rectangle 6" fill="#fff" width="1.293" height="10" rx="0.647"
+                  transform="translate(10) rotate(90)" />
+              </svg>
+            </button>
+
+            <input (click)="setCursorPosition()" focus-elm="rte" [type]="isMobileTrade ? 'text' : 'number'" [(ngModel)]="model[ordrType].Rate"
+              name="Rate" [step]="stepAndMinRate" [min]="stepAndMinRate" (keypress)="decimalValidator($event)"
+              (input)="inputChange(ordrType, ordrType === 'Buy', 'r',$event)" (paste)="pasteRestriction($event,'r')"
+              (focus)="onFocus($event)" />
+
+            <button (click)="amountChange('r',ordrType, true)" class="input-qtyBtn" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+                <path id="Combined_Shape" data-name="Combined Shape" fill="#fff"
+                  d="M4.375,9.374V5.625H.625a.625.625,0,0,1,0-1.25h3.75V.625a.625.625,0,0,1,1.25,0v3.75H9.374a.625.625,0,1,1,0,1.25H5.625V9.374a.625.625,0,1,1-1.25,0Z" />
+              </svg>
+            </button>
+            <div class="input-spin-btn dn-v2"></div>
+            <span #inputRateTip class="inputTiphidden dn-v2">{{model[ordrType].Rate}}</span>
+            <div *ngIf="model[ordrType].Rate" #rateTip class="input-tooltip dn-v2"
+              [ngStyle]="model[ordrType].Rate ? {'left': (inputRateTip.offsetWidth - rateTip.offsetWidth/2).toFixed(0) +'px', 'opacity': 1} : ''">
+              <span
+                *ngIf="!isMobileTrade">${{ dollarPrice(ordrType,'Rate') }}</span>
+            </div>
+          </div>
+          <div class="suffix">{{mainPair ? mainPair.baseCurrency.symbol : ''}}</div>
+        </div>
+      </div>
+      <div class="input-field-wrap">
+        <label *ngIf="!isMobileTrade">{{'Amount' | tx}}:</label>
+        <label *ngIf="isMobileTrade">{{'Amount' | tx}} {{mainPair ? mainPair.marketCurrency.symbol : ''}}:</label>
+        <div class="input-field">
+          <div class="input-inner input-qty">
+            <button (click)="amountChange('q',ordrType, false)" class="input-qtyBtn" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="1.293" viewBox="0 0 10 1.293">
+                <rect id="Rectangle_6" data-name="Rectangle 6" fill="#fff" width="1.293" height="10" rx="0.647"
+                  transform="translate(10) rotate(90)" />
+              </svg>
+            </button>
+            <input focus-elm="qty" (click)="setCursorPosition()" [type]="isMobileTrade ? 'text' : 'number'" id="fsd879f89sdf789sd"
+              [(ngModel)]="model[ordrType].Quantity" name="Quantity" [step]="stepAndMInQty"
+              (paste)="pasteRestriction($event,'q')" [min]="stepAndMInQty" (keypress)="decimalValidator($event)"
+              (input)="inputChange(ordrType, ordrType === 'Buy','q',$event)" (focus)="onFocus($event)"
+              />
+            <button (click)="amountChange('q',ordrType, true)" class="input-qtyBtn" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+                <path id="Combined_Shape" data-name="Combined Shape" fill="#fff"
+                  d="M4.375,9.374V5.625H.625a.625.625,0,0,1,0-1.25h3.75V.625a.625.625,0,0,1,1.25,0v3.75H9.374a.625.625,0,1,1,0,1.25H5.625V9.374a.625.625,0,1,1-1.25,0Z" />
+              </svg>
+            </button>
+            <div class="input-spin-btn dn-v2"></div>
+            <span #inputQtyTip class="inputTiphidden dn-v2">{{model[ordrType].Quantity}}</span>
+            <!-- <div #qtyTip class="input-tooltip"
+              [ngStyle]="{'left': (model[ordrType].Quantity ? (inputQtyTip.offsetWidth - qtyTip.offsetWidth/2): (inputQtyTip.offsetWidth - qtyTip.offsetWidth/2)) +'px'}">
+              {{  isFinite(mainPair.rateUsd / model[ordrType].Quantity) ? (mainPair.rateUsd / model[ordrType].Quantity) : 0 }}
+            </div> -->
+          </div>
+          <div class="suffix">{{mainPair ? mainPair.marketCurrency.symbol : ''}}</div>
+        </div>
+      </div>
+      <ng-container *ngIf="!isMobileTrade">
+        <div *ngIf="ordrType === 'Buy'" class="range-slider">
+          <range-slider #buySlider [ordertype]="ordrType === 'Buy' ? 'Buy' : 'Sell'" [isLogin]="isLogin"
+            [userBalance]="getUserBalance(ordrType)" (onValueChange)="valueChanging($event)"></range-slider>
+        </div>
+        <div *ngIf="ordrType === 'Sell'" class="range-slider">
+          <range-slider #sellSlider [ordertype]="ordrType === 'Buy' ? 'Buy' : 'Sell'" [isLogin]="isLogin"
+            [userBalance]="getUserBalance(ordrType)" (onValueChange)="valueChanging($event)"></range-slider>
+        </div>
+
+      </ng-container>
+
+      <div *ngIf="isMobileTrade" class="amtPercent-btns" [ngClass]="ordrType === 'Buy' ? 'buy' : 'sell'">
+        <button type="button" #amtbtn *ngFor="let ordrType_amtPercent of amtPercent"
+          [ngClass]="{'selected': ordrType_amtPercent === selectedPercent[ordrType]}"
+          (click)="applyPercent(ordrType_amtPercent, ordrType === 'Buy', ordrType)">{{ordrType_amtPercent}}%</button>
+      </div>
+
+      <div class="input-field-wrap">
+        <label *ngIf="!isMobileTrade">{{'Total' | tx}}:</label>
+        <label *ngIf="isMobileTrade">{{'Total' | tx}} {{mainPair ? mainPair.baseCurrency.symbol : ''}}:</label>
+        <div class="input-field">
+          <div class="input-inner" tabindex="0">
+            <input (click)="setCursorPosition()" (paste)="pasteRestriction($event,'r')" (keypress)="decimalValidator($event)" min="1"
+              [type]="isMobileTrade ? 'text' : 'number'" *ngIf="ordrType === 'Buy'" name="totalqt" class="numberOnly"
+              [(ngModel)]="buyqt" (input)="totalqtChange(ordrType, ordrType === 'Buy', buyqt, $event)"
+              (focus)="onFocus($event)" 
+              (change)="onTotalValueChange(orderType, orderType === 'Buy')" />
+            <input (click)="setCursorPosition()" (paste)="pasteRestriction($event,'r')" (keypress)="decimalValidator($event)" min="1"
+              [type]="isMobileTrade ? 'text' : 'number'" *ngIf="ordrType !== 'Buy'" name="totalqt" class="numberOnly"
+              [(ngModel)]="sellqt" (input)="totalqtChange(ordrType, ordrType === 'Buy', sellqt, $event)"
+              (focus)="onFocus($event)" />
+            <div class="input-spin-btn dn-v2"></div>
+            <!-- <div class="input-tooltip" [ngStyle]="{'left': ((buyqt ? buyqt.length * 9 : 0)) +'px'}">
+              $17458
+            </div> -->
+          </div>
+          <div class="suffix">{{mainPair ? mainPair.baseCurrency.symbol : ''}}</div>
+          <!--value="{{(!isNumber(model[ordrType].Rate * model[ordrType].Quantity) ? model[ordrType].Rate * model[ordrType].Quantity : 0) | round}}"-->
+          <!--value="{{(!isNumber(model[ordrType].Rate * model[ordrType].Quantity) ? model[ordrType].Rate * model[ordrType].Quantity : 0) | round}}"-->
+          <!-- <span class="input-error" *ngIf="ordrType === 'Buy' && validbuyrate">*Please input valid Price</span><br
+            *ngIf="ordrType === 'Buy' && validbuyrate">
+          <span class="input-error" *ngIf="ordrType === 'Buy' && validbuyqty">*Please input Valid
+            Quantity</span>
+          <span class="input-error" *ngIf="ordrType === 'Sell' && validsellrate">*Please input valid Price</span>
+          <br *ngIf="ordrType === 'Sell' && validsellrate">
+          <span class="input-error" *ngIf="ordrType === 'Sell' && validsellqty">*Please input valid
+            Quantity</span> -->
+
+          <!-- <input type="text" [value]="orderType === 'Buy' ? totalbuy : totalsell" name="Quantity" class="numberOnly"
+            placeholder="Total" /> -->
+          <!-- <input type="text" [(ngModel)]="(!isNumber(model[ordrType].Rate * model[ordrType].Quantity) ? model[ordrType].Rate * model[ordrType].Quantity : 0) | round"
+            name="to" class="numberOnly" placeholder="Total" /> -->
+
+        </div>
+      </div>
+      <!-- <div class="info">
+          Total {{mainPair ? mainPair.baseCurrency.symbol : ''}}: <span>{{ (!isNumber(model[ordrType].Rate
+            * model[ordrType].Quantity) ? model[ordrType].Rate * model[ordrType].Quantity : 0) | round }}</span>
+          </div>
+        [attr.disabled]="ordrType === 'Buy' ? isDisabled['Buy'] : isDisabled['Sell']"
+        -->
+      <div class="small-info" *ngIf="isMobileTrade"><span>Balance:</span> {{getBalance(ordrType)}}</div>
+      <button *ngIf="isLogin" mat-raised-button [color]="ordrType === 'Buy' ? 'accent' : 'warn'" class="btn-block"
+        [disabled]="form.invalid || stoptrade">{{ordrType | tx}}
+        {{mainPair ? mainPair.marketCurrency.symbol : ''}}
+      </button>
+      <div class="acct-link" *ngIf="!isLogin">
+        <a [routerLink]="['/login']">{{'lin' | tx}}</a>
+        <span>{{'or' | tx}}</span>
+        <a [routerLink]="['/signup']">{{'SignUp' | tx}}</a>
+      </div>
+    </form>
+  </div>
+  <ul class="numeric-keypad" *ngIf="isMobileTrade">
+    <li>
+      <button type="button" (click)="keypad(7)">7</button>
+      <button type="button" (click)="keypad(8)">8</button>
+      <button type="button" (click)="keypad(9)">9</button>
+    </li>
+    <li>
+      <button type="button" (click)="keypad(4)">4</button>
+      <button type="button" (click)="keypad(5)">5</button>
+      <button type="button" (click)="keypad(6)">6</button>
+    </li>
+    <li>
+      <button type="button" (click)="keypad(1)">1</button>
+      <button type="button" (click)="keypad(2)">2</button>
+      <button type="button" (click)="keypad(3)">3</button>
+    </li>
+    <li>
+      <button type="button" (click)="keypad('.')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6">
+          <circle fill="#fff" data-name="Ellipse 364" cx="3" cy="3" r="3" transform="translate(0 0)" />
+        </svg>
+      </button>
+      <button type="button" (click)="keypad(0)">0</button>
+      <!-- <button type="button" (click)="keypadRemove()"><span class="remove"></span></button> -->
+      <button type="button" class="remove" (click)="keypadRemove()">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="21"
+          viewBox="0 0 30 21">
+          <defs>
+            <style>
+              .cls-5 {
+                filter: url(#Path_2013);
+              }
+            </style>
+            <filter id="Path_2013" x="0" y="0" width="44.348" height="35.205" filterUnits="userSpaceOnUse">
+              <feOffset dy="2" input="SourceAlpha" />
+              <feGaussianBlur stdDeviation="2.5" result="blur" />
+              <feFlood flood-opacity="0.161" />
+              <feComposite operator="in" in2="blur" />
+              <feComposite in="SourceGraphic" />
+            </filter>
+          </defs>
+          <g id="plus">
+            <g transform="matrix(1, 0, 0, 1, -7.5, -5.5)">
+              <g id="Path_2013-2" data-name="Path 2013" fill="#fff" transform="translate(15.74 5.5)">
+                <path stroke="none"
+                  d="M 17.73986625671387 19.70531845092773 L 0.2488251775503159 19.70531845092773 L -7.594449520111084 9.998597145080566 L 0.2456254214048386 0.4999992251396179 L 17.73986625671387 0.4999992251396179 C 19.321044921875 0.4999992251396179 20.60742568969727 1.786379218101501 20.60742568969727 3.367549180984497 L 20.60742568969727 16.8377685546875 C 20.60742568969727 18.4189395904541 19.321044921875 19.70531845092773 17.73986625671387 19.70531845092773 Z" />
+                <path fill="#fff" stroke="none"
+                  d="M 0.4812450408935547 1 L -6.94891357421875 10.00196552276611 L 0.4876260757446289 19.20531845092773 L 17.73986625671387 19.20531845092773 C 19.04534530639648 19.20531845092773 20.10742568969727 18.14323997497559 20.10742568969727 16.8377685546875 L 20.10742568969727 3.367549896240234 C 20.10742568969727 2.062078475952148 19.04534530639648 1 17.73986625671387 1 L 0.4812450408935547 1 M 0.01000595092773438 0 L 17.73986625671387 0 C 19.59971618652344 0 21.10742568969727 1.507709503173828 21.10742568969727 3.367549896240234 L 21.10742568969727 16.8377685546875 C 21.10742568969727 18.69761848449707 19.59971618652344 20.20531845092773 17.73986625671387 20.20531845092773 L 0.01000595092773438 20.20531845092773 L -8.239994049072266 9.9952392578125 L 0.01000595092773438 0 Z" />
+              </g>
+            </g>
+            <path id="Combined_Shape" data-name="Combined Shape" fill="#080c34"
+              d="M6,13V8H1A1,1,0,0,1,1,6H6V1A1,1,0,0,1,8,1V6h5a1,1,0,0,1,0,2H8v5a1,1,0,0,1-2,0Z"
+              transform="translate(16.972 0.052) rotate(45)" />
+          </g>
+        </svg>
+      </button>
+      <!-- <button type="button" (click)="keypad('.')">.</button>
+      <button type="button" (click)="keypad(0)">0</button>
+      <button type="button" (click)="keypadRemove()"><span class="remove"></span></button> -->
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,10 @@
+<svg id="ethereum" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20.944" height="20.944" viewBox="0 0 20.944 20.944">
+  <defs>
+    <linearGradient id="linear-gradient" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#8f69f5"/>
+      <stop offset="1" stop-color="#6a3a93"/>
+    </linearGradient>
+  </defs>
+  <rect id="Rectangle_3" data-name="Rectangle 3" width="20.944" height="20.944" rx="10.472" fill="url(#linear-gradient)"/>
+  <path id="Shape" d="M.155,7.5,4.039,9.682,8,7.5,4.075,12.8ZM0,6.577,4.051,4.922l3.937,1.7L4.051,8.76ZM4.033,4.145.143,5.735,4.027,0,7.8,5.776Z" transform="translate(6.399 4.072)" fill="#fff"/>
+</svg>

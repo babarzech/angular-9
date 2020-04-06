@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="excel" width="17.066" height="16" viewBox="0 0 17.066 16">
+    <defs>
+        <style>
+            .cls-1{fill:#00c896}
+        </style>
+    </defs>
+    <g id="Group_5766" data-name="Group 5766">
+        <g id="Group_5765" data-name="Group 5765">
+            <path id="Path_3562" d="M16.533 18.123H9.6v-1.6a.532.532 0 0 0-.193-.411.524.524 0 0 0-.439-.112L.435 17.6a.532.532 0 0 0-.435.523v11.733a.533.533 0 0 0 .435.524l8.533 1.6a.5.5 0 0 0 .1.01.533.533 0 0 0 .533-.533v-1.6h6.933a.534.534 0 0 0 .533-.533V18.657a.534.534 0 0 0-.534-.534zm-9.2 7.649a.533.533 0 1 1-.8.7L4.981 24.7l-1.36 1.749a.534.534 0 0 1-.843-.656l1.487-1.911L2.8 22.207a.533.533 0 0 1 .8-.7l1.331 1.521L6.513 21a.534.534 0 1 1 .842.656l-1.707 2.189zM16 28.79H9.6v-1.067h1.6a.533.533 0 1 0 0-1.067H9.6V25.59h1.6a.533.533 0 0 0 0-1.067H9.6v-1.067h1.6a.533.533 0 1 0 0-1.067H9.6v-1.066h1.6a.533.533 0 1 0 0-1.067H9.6V19.19H16z" class="cls-1" data-name="Path 3562" transform="translate(0 -15.989)"/>
+        </g>
+    </g>
+    <g id="Group_5768" data-name="Group 5768" transform="translate(12.528 4.248)">
+        <g id="Group_5767" data-name="Group 5767">
+            <path id="Path_3563" d="M385.7 144.011h-1.134a.567.567 0 1 0 0 1.134h1.134a.567.567 0 0 0 0-1.134z" class="cls-1" data-name="Path 3563" transform="translate(-384 -144.011)"/>
+        </g>
+    </g>
+    <g id="Group_5770" data-name="Group 5770" transform="translate(12.528 6.371)">
+        <g id="Group_5769" data-name="Group 5769">
+            <path id="Path_3564" d="M385.7 208.011h-1.134a.567.567 0 1 0 0 1.134h1.134a.567.567 0 0 0 0-1.134z" class="cls-1" data-name="Path 3564" transform="translate(-384 -208.011)"/>
+        </g>
+    </g>
+    <g id="Group_5772" data-name="Group 5772" transform="translate(12.528 8.495)">
+        <g id="Group_5771" data-name="Group 5771">
+            <path id="Path_3565" d="M385.7 272.011h-1.134a.567.567 0 1 0 0 1.134h1.134a.567.567 0 0 0 0-1.134z" class="cls-1" data-name="Path 3565" transform="translate(-384 -272.011)"/>
+        </g>
+    </g>
+    <g id="Group_5774" data-name="Group 5774" transform="translate(12.528 10.619)">
+        <g id="Group_5773" data-name="Group 5773">
+            <path id="Path_3566" d="M385.7 336.011h-1.134a.567.567 0 1 0 0 1.134h1.134a.567.567 0 0 0 0-1.134z" class="cls-1" data-name="Path 3566" transform="translate(-384 -336.011)"/>
+        </g>
+    </g>
+</svg>

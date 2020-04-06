@@ -1,0 +1,10 @@
+<svg id="litecoin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20.371" height="20.371" viewBox="0 0 20.371 20.371">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-0.116" y1="-0.147" x2="1.155" y2="1.189" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#c6c8ce"/>
+      <stop offset="1" stop-color="#545b5f"/>
+    </linearGradient>
+  </defs>
+  <rect id="Rectangle_3" data-name="Rectangle 3" width="20.371" height="20.371" rx="10.186" fill="url(#linear-gradient)"/>
+  <path id="Shape" d="M.865,7.139,0,7.491.417,5.735l.875-.369L2.554,0h3.11L4.743,3.944,5.6,3.581,5.186,5.331l-.865.363L3.806,7.912H8.488l-.529,2.273H.153Z" transform="translate(6.225 5.093)" fill="#fff"/>
+</svg>

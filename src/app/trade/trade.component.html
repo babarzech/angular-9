@@ -1,0 +1,880 @@
+<app-header (sideBarToggle)="toggleSideBar($event)" (changefavpair)="addFavPair()"
+  (changePairEvent)="changePair($event)" [isLogin]="isLogin" [favPairsId]="favPairsId"
+  [favpairStatus]="defaultSetting.hideFavTab" [tversion2]="tversion2" [isMobile]="isMobile" [isLeveragePairShow]="isLeveragePairShow">
+</app-header>
+<main class="panel tradePage"
+  [ngStyle]="size.width >= 1200 ? {'height' : (size.height - size.headerHeight) + 'px' } : ''">
+  <div class="tradePanels" *ngIf="mainPair.marketCurrency">
+    <div class="tradePanel-left">
+      <div class="row mkt-info-wrap" *ngIf="mainPair && mainPair.rate" [ngStyle]="{'padding-left': size.mainpairmenuBtnWidth + (!isMobile ? 42 : 0) + 'px'}"
+        [ngClass]="{'favpair-open': (isMobile ? false : defaultSetting.hideFavTab), 'levegPairActive': isLeveragePairShow}">
+        <button *ngIf="!isMobile" type="button" class="favpairs-toggle btn-trans" (click)="favPairsToggle()">
+          <img src="assets/images/svg/arrow-right.svg" alt="" [hidden]="(isMobile ? false : defaultSetting.hideFavTab)">
+          <img src="assets/images/svg/arrow-left.svg" alt="" [hidden]="(isMobile ? false : !defaultSetting.hideFavTab)">
+        </button>
+        <div class="mkt-info">
+          <div class="mkt-info-item visible">
+            <div (click)="pickRate(mainPair.rate)" class="mkt-info-price"
+              [ngClass]="{'text-success': mainPair.trendUp, 'text-danger': !mainPair.trendUp}">
+              {{mainPair ? formatNumber(decimal_format(mainPair.rate, mainPair.basePrecision)) : ''}}
+            </div>
+          </div>
+          <div class="mkt-info-item">
+            <div class="dollar-price">${{ formatNumber(dollarPrice(mainPair.rateUsd)) }}
+            </div>
+          </div>
+          <div class="mkt-info-item visible">
+            <button type="button" class="btn1 btn1-sm btn-trend" [ngClass]="{trenddown: !mainPair.trendUp24hr}"><i
+                class="material-icons">{{mainPair.trendUp24hr
+                            ? 'add' : 'remove'}}</i>{{mainPair.prevDayPrice !== 0 ? decimal_format_fix(Math.abs((mainPair.rate/mainPair.prevDayPrice * 100) - 100), mainPair.basePrecision) : '0'}}%
+              <span
+                *ngIf="!isMobile">({{mainPair.rate > mainPair.prevDayPrice ? '+': '' }}{{ decimal_floor(mainPair.rate - mainPair.prevDayPrice, mainPair.basePrecision) }})</span></button>
+          </div>
+        </div>
+        <div class="mkt-info">
+          <div class="mkt-info-item">
+            <span class="info-name">24h {{'High' | tx}}:</span>
+            <span class="info-price">
+              {{mainPair ? decimal_format(mainPair.high, mainPair.basePrecision) : ''}}
+            </span>
+          </div>
+          <div class="mkt-info-item">
+            <span class="info-name">24h {{'Low' | tx}}:</span>
+            <span class="info-price">
+              {{mainPair ? decimal_format(mainPair.low, mainPair.basePrecision) : ''}}
+            </span>
+          </div>
+          <div class="mkt-info-item">
+            <span class="info-name">24h {{'Vol' | tx}}:</span>
+            <span class="info-price">
+              {{(mainPair ? decimal_format(mainPair.volume, mainPair.basePrecision) : 0) }}
+              <span class="info-symbol">{{ mainPair.baseCurrency.symbol }}</span>
+            </span>
+          </div>
+            <div class="maininfo_menu" [@.disabled]="true">
+              <button type="button" class="btn-trans" matTooltipPosition="right" [matMenuTriggerFor]="infoMenu"
+                (onMenuOpen)="mktMenuOpen()">
+                <img src="assets/images/svg/info.svg" />
+              </button>
+              <mat-menu #infoMenu="matMenu" class="info_menu1" xPosition="before" [overlapTrigger]="false">
+                <table class="table1">
+                  <tbody>
+                    <tr>
+                      <th>{{'LastChange' | tx}}:</th>
+                      <td [ngClass]="{'text-success': mainPair.trendUp24hr , 'text-danger': !mainPair.trendUp24hr}">
+                        {{mainPair.rate > mainPair.prevDayPrice ? '+': '' }}{{ decimal_floor(mainPair.rate - mainPair.prevDayPrice, mainPair.basePrecision) + ' ' }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>24h {{'highl' | tx}}:</th>
+                      <td>
+                        {{mainPair ? decimal_format(mainPair.high, mainPair.basePrecision) + ' ' : ''}}<span
+                          class="opacity-5">{{ mainPair.baseCurrency.symbol }}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>24h {{'lowl' | tx}}:</th>
+                      <td>
+                        {{mainPair ? decimal_format(mainPair.low, mainPair.basePrecision)+' ' : ''}}<span
+                          class="opacity-5">{{ mainPair.baseCurrency.symbol }}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>{{'Volume' | tx}}:</th>
+                      <td>
+                        {{ mainPair.volume + ' ' }}
+                        <span class="opacity-5">{{ mainPair.baseCurrency.symbol }}</span>
+                      </td>
+                    </tr>
+                    <!-- <tr>
+                                                            <th>1 day Range:</th>
+                                                            <td>
+                                                                {{mainPair ? decimal_format(mainPair.high, mainPair.basePrecision) : ''}}
+                                                                -
+                                                                {{mainPair ? decimal_format(mainPair.low, mainPair.basePrecision) : ''}}
+                                                            </td>
+                                                        </tr> -->
+                    <tr>
+                      <th>{{'LastPrice' | tx}}:</th>
+                      <td class="fw-400">
+                        <strong *ngIf="mainPair.rate"
+                          [ngClass]="{'text-danger': mainPair.trendUp === false}">{{mainPair.rate ==
+                                                            0 ? 'N/A' :  (mainPair.rate).toFixedFloor(mainPair.basePrecision) }}
+                        </strong>
+                        <span class="opacity-5">{{ mainPair.baseCurrency.symbol }}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </mat-menu>
+            </div>
+        </div>
+        <div class="leverage-pair" *ngIf="(isMobile && isLeveragePairShow) || !isMobile">
+          <ng-container>
+            <span class="badge-121" *ngIf="isMobile">Soon</span>
+            <span class="badge-121" *ngIf="!isMobile">Soon</span>
+            <div class="leverage-pair-text">Leverage Pairs</div>
+            <button type="button" class="btn-trans" *ngIf="isMobile" (click)="leveragePairHide()">
+              <img src="assets/images/svg/x-2.svg" alt="">
+            </button>
+          </ng-container>
+        </div>
+      </div>
+      <ul class="tab325" [ngStyle]="isMobile ? '' : {'display': 'none'}">
+        <li *ngFor="let mktTab325 of MktMobileTab325; let i = index" [class.active]="MktTabStatus[mktTab325]"
+          (click)="MktMobileTab(mktTab325, true)">{{mktTab325 | tx}}</li>
+      </ul>
+      <div class="favpair-chart">
+        <div class="fav-pairs" *ngIf="!isMobile" [ngClass]="{'open': defaultSetting.hideFavTab && !togglechart}">
+          <div class="subpanel-header">
+            <div class="subpanel-header-left">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px"
+                height="14px" viewBox="0 0 14 14" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g class="star" transform="translate(-21.000000, -117.000000)" fill="#FFFFFF" stroke="#FFFFFF">
+                    <g id="Group-4" transform="translate(-1.000000, 68.000000)">
+                      <polygon id="Star"
+                        points="28.6573956 59.5 24.5428988 61.663119 25.3286978 57.0815595 22 53.836881 26.6001472 53.1684405 28.6573956 49 30.714644 53.1684405 35.3147912 53.836881 31.9860934 57.0815595 32.7718924 61.663119" />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              <h6>{{'Favo' | tx}}</h6>
+            </div>
+            <div class="subpanel-header-right">
+              <button type="button" (click)="pairMenuToggle()" class='btn-trans favpair-addbtn'>
+                <img class="normal" src="assets/images/svg/plus.svg" alt="" />
+                <img class="hoverd" src="assets/images/svg/plus_hovered.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <!-- <tbody class="mcScrollbar" [ngStyle]="!isMobile ? {'height': ((size.chartHeight + size.marketOrderCreateHeight)/2 - 68)+'px'} : {'height': '300px'}">
+                                    <tr *ngFor="let pair of tradingPairsFilter() | filter:market_val" (click)="changePair(pair)">
+                                        <td><i class="material-icons" [ngClass]="{fav_act: this.favPairs.indexOf(pair.id) > -1}" (click)="switchFav($event, pair)">star</i> {{pair.name}}</td>
+                                        <td>{{isNotEmpty(pair.rate) ? pair.rate : 'N/A'}}</td>
+                                        <td *ngIf="pairtblCol == 1 && pair.rate !== 0" [ngClass]="{'text-success': pair.trendUp, 'text-danger': !pair.trendUp}">{{(pair.prevDayPrice
+                                        !== 0 ? ((pair.rate/pair.prevDayPrice)*100 - 100) : 100) | round2}}%</td>
+                                        <td *ngIf="pairtblCol == 1 && pair.rate === 0">N/A</td>
+                                        <td *ngIf="pairtblCol == 2">{{pair.volume | round2}}</td>
+                                    </tr>
+                                    </tbody> -->
+          <div class="dn-v2 favpair-item-title">
+            <span>{{'Symbol' | tx}}</span>
+            <span>{{'Price' | tx}}</span>
+          </div>
+          <div class="mcScrollbar favpairtable" [attr.test]="stockChart.offsetHeight"
+            [ngStyle]="{'height': stockChart.offsetHeight - 60 +'px'}">
+            <ul class="favpair-items" [ngClass]="'mcScrollbar'">
+              <li *ngFor="let favpair of favPairs;let i = index" [class.active]="favStatus[favpair.id]"
+                (click)="changePair(favpair)">
+                <a>
+                  <!-- <img src="assets/images/star2.svg" alt=""> -->
+                   {{favpair.name}}
+                  <span
+                    [ngClass]="{'text-success': favpair.trendUp, 'text-danger': !favpair.trendUp}">{{isNotEmpty(favpair.rate) ? (favpair.rate).toFixedFloor(favpair.basePrecision) : 'N/A'}}</span>
+                  <abbr
+                    [ngClass]="{'text-success': favpair.trendUp24hr, 'text-danger': !favpair.trendUp24hr}">{{(favpair.prevDayPrice !== 0 ? ((favpair.rate/favpair.prevDayPrice)*100 - 100) : 100) | round2}}%</abbr>
+                </a>
+              </li>
+              <li *ngIf="favPairs.length === 0" style="visibility: hidden; height: 39.5px"></li>
+            </ul>
+          </div>
+          <mat-menu #favPair="matMenu" class="favpair-dropdown" [overlapTrigger]="false">
+            <table style="margin-bottom: -9px" class="table">
+              <thead>
+                <tr>
+                  <th>{{'Pair' | tx}}</th>
+                  <th>{{'Price' | tx}}</th>
+                  <th>{{'Change' | tx}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <ng-container *ngFor="let pair of favPairs; let i = index">
+                  <tr (click)="changePair(pair);" *ngIf="!displayFavPair(i)">
+                    <td><img src="assets/images/star2.svg" style="float:left" alt="">
+                      {{ pair.name }}</td>
+                    <td class="text-success">{{isNotEmpty(pair.rate) ? pair.rate : 'N/A'}}</td>
+                    <td [ngClass]="{'text-success': pair.trendUp24hr, 'text-danger': !pair.trendUp24hr}">
+                      {{(pair.prevDayPrice !== 0 ? ((pair.rate/pair.prevDayPrice)*100 - 100) : 100) | round2}}%
+                    </td>
+                  </tr>
+                </ng-container> -->
+
+              </tbody>
+            </table>
+          </mat-menu>
+        </div>
+        <!-- //mobile favourites -->
+        <div class="fav-pairs-mobile" *ngIf="isMobile && isChartTab">
+          <div class="favpair-editList">
+            <button type="button" (click)="pairMenuToggle()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 21.076 20.094">
+                <defs>
+                  <style>
+                    .cls-2 {
+                      fill: #fff;
+                      stroke: #fff;
+                    }
+
+                    .cls-2,
+                    .cls-3 {
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                    }
+
+                    .cls-3 {
+                      fill: none;
+                      stroke: #080c34;
+                    }
+                  </style>
+                </defs>
+                <g id="Group_3385" data-name="Group 3385" class="cls-1" transform="translate(-113.424 -143)">
+                  <g id="Group_2627" data-name="Group 2627" transform="translate(113.923 143.5)">
+                    <path id="star" class="cls-2"
+                      d="M12.039,2l3.1,6.284L22.077,9.3l-5.019,4.889,1.185,6.906-6.2-3.263-6.2,3.263,1.185-6.906L2,9.3,8.937,8.284Z"
+                      transform="translate(-2 -2)" />
+                  </g>
+                  <g id="Group_2930" data-name="Group 2930" transform="translate(120.7 150.355)">
+                    <line id="Line_402" data-name="Line 402" class="cls-3" y1="6.674" transform="translate(3.337)" />
+                    <line id="Line_403" data-name="Line 403" class="cls-3" y1="6.674"
+                      transform="translate(6.674 3.336) rotate(90)" />
+                  </g>
+                </g>
+              </svg>
+              {{'EditFavoritesList' | tx}}
+            </button>
+          </div>
+          <table class="table favpair-table">
+            <thead>
+              <tr>
+                <th>{{'Symbol' | tx}}</th>
+                <th>{{'LastPrice' | tx}}</th>
+                <th>24h Ch</th>
+                <th>24h {{'Volume' | tx}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let favpair of favPairs;let i = index" [class.active]="favStatus[favpair.id]">
+                <td class="pair-name" (click)="changePair(favpair);">
+                  <img (click)="removeFav(favpair)"
+                    src="assets/images/star2.svg" alt="">
+                  {{ favpair.name }}</td>
+                <td (click)="changePair(favpair);"
+                  [ngClass]="{'text-success': favpair.trendUp, 'text-danger': !favpair.trendUp}">
+                  {{isNotEmpty(favpair.rate) ? Number(favpair.rate).toFixedFloor(favpair.basePrecision) : 'N/A'}}
+                </td>
+                <td (click)="changePair(favpair);"
+                  [ngClass]="{'text-success': favpair.trendUp24hr, 'text-danger': !favpair.trendUp24hr}">
+                  {{(favpair.prevDayPrice !== 0 ? ((favpair.rate/favpair.prevDayPrice)*100 - 100) : 100) | round2}}%
+                </td>
+                <td>
+                  {{isNotEmpty(favpair.volume) ? decimal_format(favpair.volume,((isMobile && favpair.baseCurrency.symbol === 'USDT') ? 2 : 6)) : 'N/A'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="subpanel chartPanel" [ngStyle]="!isMobile ? '' : {'display': isTradeTab ? '' : 'none'}">
+          <div id="chartdiv" [hidden]="togglechart" #stockChart class="stock-chart"
+            [ngStyle]="!isMobile ? {'height': (size.height - size.headerHeight  - size.buySellHeight + changeInTotalOrder - (6) + (size.height < 750 ? 50 : (size.height < 850 ? 50 : 10)) - (size.isMobileHeight ?  (0) : 0)) +'px'} : {'height': '300px'}">
+          </div>
+        </div>
+      </div>
+
+      <!-- <app-user-orders [chartOffsetTop]="chartOffsetTop" [isOrderTab]="isOrderTab"
+        (toggleChartEvent)="toggleChart($event)" [tversion2]="tversion2" [isTablet]="isTablet"
+        [togglechart]="togglechart" (historyTabChangeEvent)="historyTabChange($event)" [stockChart]="stockChart"
+        [matTab4]="matTab4" [dropdownName]="dropdownName" [historyDetailStatus]="historyDetailStatus"
+        [pairinitialized]="pairinitialized" [panelExpandStatus]="panelExpandStatus" [filtertype]="filtertype"
+        [fills]="fills" [orderToshow32]="orderToshow32" (cancelOrderEvent)="cancelOrder($event)"
+        [defaultSetting]="defaultSetting" [mcsLoaderStatus]="mcsLoaderStatus" [dropdownStatus]="dropdownStatus"
+        [dropdownModel]="dropdownModel" [orderType32]="orderType32" [myOrders]="myOrders" [ordHistTab32]="ordHistTab32"
+        [mainPair]="mainPair" [myWallets]="myWallets" [isLogin]="isLogin" [isMobile]="isMobile">
+      </app-user-orders> -->
+
+    </div>
+    <div class="tradePanel-right">
+      <div *ngIf="toggleChartTablet()" class="row orderbook-row">
+        <div class="col-lg-6 col-sm-6 order-panel" *ngIf="!isMobile || isTradeTab">
+          <div class="subpanel order-table"
+            [ngStyle]="!isTablet ? {'height': ((changeInTotalOrder + size.height) - size.headerHeight - (size.width >= 1200 ? size.buySellHeight : 0) - 27) +'px','overflow':'hidden'} : ''">
+            <div class="subpanel-header">
+              <div class="subpanel-header-left">
+                <h6>{{'OrderBook' | tx}}</h6>
+              </div>
+              <div class="subpanel-header-right">
+                <div class="sub-title mr-10">{{'Group' | tx}}:</div>
+                <div class="dropdown dropdown12 dropdown-sm group-dropdown dropdown-lightblue"
+                  [attr.dropdown-toggle]="dropdownStatus['group']">
+                  <div class="dropdown-backdrop" (click)="dropdownToggle('group')">
+                  </div>
+                  <button class="dropdown-toggle" type="button" (click)="dropdownToggle('group')">
+                    {{ ratePrecision }} <span class="dropdown-icon">
+                      <i class="material-icons">
+                        expand_more
+                      </i>
+                    </span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <ng-container *ngFor="let group of rateGroup">
+                      <li [class.active]="group === ratePrecision"><a
+                          (click)="selectDropdownValue(group)">{{ group }}</a></li>
+                    </ng-container>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <table class="table1 orderbook-tbl13">
+              <thead>
+                <tr>
+                  <th>{{'Price' | tx}} <span class="dn-v1">({{mainPair ? mainPair.baseCurrency.symbol : ''}})</span>
+                  </th>
+                  <th>{{'Amount' | tx}} <span class="dn-v1">({{mainPair ? mainPair.marketCurrency.symbol : ''}})</span>
+                  </th>
+                  <th>{{'Total' | tx}} <span class="dn-v1">({{mainPair ? mainPair.baseCurrency.symbol : ''}})</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3" class="p-0 mobileOrderBookHeight"
+                    [ngStyle]="{'height': ((isTablet) ? 596 + 'px' : '') }">
+                    <div id="sellscroll" *ngIf="orderBookType == 0 || orderBookType == 2" class="sellscroll"
+                      [ngStyle]="orderBookType !== 0 ? {'height': (size.orderPanelHeight - size.thSubPanlHeaderHeight - size.thTabletheadHeight - (isMobile ? 40 : 40)) +'px'} : {'height': (isTablet && orderBookType === 1 ? 596 + 'px' : '') }">
+                      <table>
+                        <tbody [ngClass]=" {'tbody-sell': orderBookType==2}">
+                          <ng-container *ngIf="orderBookType == 0 || orderBookType == 2">
+                            <ng-container
+                              *ngFor="let i of createRange((totalOrderBookOrdersToShow) - (groupedSell.length))">
+                              <tr>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                              </tr>
+                            </ng-container>
+                            <!-- <h2>Drag and Drop demo</h2>
+                                                        <div id="div1" (drop)="drop($event)" (dragover)="allowDrop($event)">
+
+                                                            <img src="https://images.pexels.com/photos/658687/pexels-photo-658687.jpeg?auto=compress&cs=tinysrgb&h=350"
+                                                                draggable="true" (dragstart)="drag($event)" id="drag1" width="88" height="31">
+                                                        </div>
+
+                                                        <div id="div2" (drop)="drop($event)" (dragover)="allowDrop($event)">
+                                                        </div> -->
+                            <ng-container
+                              *ngFor="let order of groupedSell | filterArray: ((isTablet && orderBookType == 0) ? 10 : totalOrderBookOrdersToShow):true:isMobile ? false : false; let i = index">
+                              <tr [class.active]="sellOrderExit[order.rate]" class="tr-red">
+                                <!-- <tr (drop)="drop($event,order,'sell')" (dragover)="allowDrop($event,order,'sell')"
+                                [attr.draggable]="sellOrderExit[order.rate]" (dragstart)="drag($event,order,'sell')"
+                                [ngClass]="sellOrderExit[order.rate] ? 'cursor-drag' : ''"
+                                [class.active]="sellOrderExit[order.rate]" class="tr-red"> -->
+                                <td>
+                                  <span *ngIf="(decimal_trunc(order.rate, ratePrecision))" class="psrv1"
+                                    (click)="pickRate(order.rate)"
+                                    [innerHTML]="decimal_trunc(order.rate, ratePrecision)">
+                                  </span>
+                                </td>
+                                <td (click)="pickOrder(order, 0, 'q')">
+                                  <span *ngIf="Number(decimal_trunc(order.rate, ratePrecision))"
+                                    [innerHTML]="decimal_format(order.quantity, mainPair.marketPrecision)"></span>
+                                </td>
+                                <td (click)="pickOrder(order, 0, 'q')">
+                                  {{ (decimal_format((order.total !== undefined ? order.total : order.rate * order.quantity), (mainPair.name === 'BTC/USDT' || mainPair.baseCurrency.symbol === 'BTC') ?
+                                                                    8  : mainPair.basePrecision )) }}
+                                  <span *ngIf="(Number(decimal_trunc(order.rate, ratePrecision)))" class="tr-span"
+                                    data-id="{{ getSellCount(i) }}"
+                                    [ngStyle]="{'width': (getSellCount(i) / totalOrderQuantity.sell) * 100 + '%'}"></span>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </ng-container>
+                        </tbody>
+                      </table>
+                    </div>
+                    <table>
+                      <tbody>
+                        <tr class="tr-prate">
+                          <th colspan="3" class="th-prate">
+                            <button class="btn-trans dn-v2" (click)="orderBookTypeSwitch(1)" type="button"
+                              [class.active]="orderBookType === 1">
+                              <svg *ngIf="orderBookType === 1" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                viewBox="0 0 22 22">
+                                <g id="book_controller_2" transform="translate(22.437 22) rotate(180)">
+                                  <path id="Path_1905" data-name="Path 1905"
+                                    d="M11,0A11,11,0,1,1,0,11,11,11,0,0,1,11,0Z"
+                                    transform="translate(22.437) rotate(90)" fill="#00c896" />
+                                  <path id="Polygon_16" data-name="Polygon 16"
+                                    d="M4.707,1.357a1,1,0,0,1,1.7,0l3.751,6a1,1,0,0,1-.848,1.53H1.8a1,1,0,0,1-.848-1.53Z"
+                                    transform="translate(5.767 5.5)" fill="#fff" />
+                                </g>
+                              </svg>
+                            </button>
+                            <div (click)="pickRate(mainPair.rate,true)">
+                              <strong *ngIf="mainPair.rate"
+                                [ngClass]="{'text-danger': mainPair.trendUp === false}">{{mainPair.rate ==
+                                                            undefined ? 'N/A' :  (mainPair.rate).toFixedFloor(mainPair.basePrecision) }}</strong>
+                              <span>${{ formatNumber(dollarPrice(mainPair.rateUsd)) }}</span>
+                            </div>
+                            <button class="btn-trans dn-v2" (click)="orderBookTypeSwitch(2)" type="button"
+                              [class.active]="orderBookType === 2">
+                              <svg *ngIf="orderBookType === 2" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                viewBox="0 0 22 22">
+                                <g id="book_controller_red" transform="translate(-0.437)">
+                                  <path id="Path_1905" data-name="Path 1905"
+                                    d="M11,0A11,11,0,1,1,0,11,11,11,0,0,1,11,0Z"
+                                    transform="translate(22.437) rotate(90)" fill="#fc4c4c" />
+                                  <path id="Polygon_16" data-name="Polygon 16"
+                                    d="M4.707,1.357a1,1,0,0,1,1.7,0l3.751,6a1,1,0,0,1-.848,1.53H1.8a1,1,0,0,1-.848-1.53Z"
+                                    transform="translate(5.767 5.5)" fill="#fff" />
+                                </g>
+                              </svg>
+                            </button>
+                          </th>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div *ngIf="orderBookType == 0 || orderBookType == 1" class="orderbook_scrollbar buyscrollorderbook"
+                      [ngStyle]="(!isTablet && (!(orderBookType == 0))) ? {'height': (size.height - size.headerHeight - size.buySellHeight - size.thSubPanlHeaderHeight - size.thTabletheadHeight  - (tversion2 ? size.orderTblPrateHeight : 0) - (tversion2 ? 27 : 3)) +'px'} : {'height': 596 + 'px'}">
+                      <table class="orderbookbuytbl">
+                        <tbody *ngIf="orderBookType == 0 || orderBookType == 1">
+                          <ng-container
+                            *ngFor="let order of groupedBuy | filterArray: ((isTablet && orderBookType == 0) ? 10 : totalOrderBookOrdersToShow) :false:false; let i = index">
+                            <tr [class.active]="buyOrderExit[order.rate]" class="tr-green">
+                              <!-- <tr [class.active]="buyOrderExit[order.rate]" class="tr-green"
+                              (drop)="drop($event,order,'buy')" (dragover)="allowDrop($event,order,'buy')"
+                              [ngClass]="buyOrderExit[order.rate] ? 'cursor-drag' : ''"
+                              [attr.draggable]="buyOrderExit[order.rate]" (dragstart)="drag($event,order,'buy')"> -->
+                              <td><span class="psrv1" (click)="pickRate(order.rate)"
+                                  [innerHTML]="decimal_format(order.rate, ratePrecision)"></span>
+                              </td>
+                              <td (click)="pickOrder(order, 1, 'q')"
+                                [innerHTML]="decimal_format(order.quantity, mainPair.marketPrecision)">
+                              </td>
+                              <td (click)="pickOrder(order, 1, 'q')">
+                                {{ (decimal_format((order.total !== undefined ? order.total : (order.rate * order.quantity)) , (mainPair.name === 'BTC/USDT' || mainPair.baseCurrency.symbol === 'BTC') ?
+                                                            8  : mainPair.basePrecision )) }}
+                                <span class="tr-span"
+                                  [ngStyle]="{'width': (getBuyCount(i) / totalOrderQuantity.buy)*100 + '%'}"></span>
+                              </td>
+                            </tr>
+                          </ng-container>
+                          <ng-container *ngFor="let i of createRange(totalOrderBookOrdersToShow - groupedBuy.length)">
+                            <tr>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                            </tr>
+                          </ng-container>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls *ngIf="sellOrders.length > 12" [directionLinks]="false" class="dark-pag"
+              (pageChange)="sellOrdersPager = $event" id="sellOrdersPager">
+            </pagination-controls>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-6 tradeHistory-panel" *ngIf="!isMobile || isTradeTab" #tradeHistory>
+          <div class="subpanel"
+            [ngStyle]="!isTablet ? {'height': ((changeInTotalOrder + size.height) - size.headerHeight - size.buySellHeight - (tversion2 ? 27 : 3)) +'px', 'overflow': 'hidden'} : {'height': 'auto'}">
+            <div class="subpanel-header">
+              <h6>{{'Trades' | tx}}</h6>
+            </div>
+            <table class="table1">
+              <thead>
+                <tr>
+                  <th>{{'Price' | tx}} <span class="dn-v1">({{mainPair ? mainPair.baseCurrency.symbol : ''}})</span>
+                  </th>
+                  <th>{{'Amount' | tx}} <span class="dn-v1">({{mainPair ? mainPair.marketCurrency.symbol : ''}})</span>
+                  </th>
+                  <th>{{'Time' | tx}}</th>
+                </tr>
+              </thead>
+              <tbody [ngClass]="{'tradeHistory-overlay': (isMobile && (tradeHistory.offsetTop > wscrollTop))}"
+                #tradeHistoryScrollbar>
+                <tr>
+                  <td colspan="3" class="p-0">
+                    <div class="mcScrollbar"
+                      [ngStyle]="!isTablet ? {'height': ((changeInTotalOrder + size.height) - size.headerHeight - size.buySellHeight - (tversion2 ? 27 : 3) - size.thSubPanlHeaderHeight) +'px'} : {'height': 'auto'}">
+                      <table>
+                        <!-- [ngClass]="{'text-danger':order.type==1, 'text-success': order.type==0}" -->
+                        <ng-container *ngFor="let order of historyOrders; let i = index">
+                          <tr [ngClass]="{'tr-green':order.trendUp,'tr-red':!order.trendUp}">
+                            <td class="fw-500" (click)="pickRate(order.rate)"
+                              [ngClass]="{'text-success':order.trendUp,'text-danger':!order.trendUp }"
+                              [innerHTML]="decimal_format(order.rate, mainPair.basePrecision)">
+                            </td>
+                            <td>{{decimal_format(order.quantity, mainPair.marketPrecision)}}
+                            </td>
+                            <td>{{order.date | date:'HH:mm:ss'}}</td>
+                          </tr>
+                        </ng-container>
+                        <tr *ngFor="let i of createRange(25 - historyOrders.length)">
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        [ngStyle]="{'display': !isMobile &&  toggleChartTablet() ? '' : 'none', 'margin-bottom': (-changeInTotalOrder ) + 'px'}"
+        class="subpanel buySell-panel">
+        <div *ngIf="false" [@.disabled]="true" class="tab1 tab-small">
+          <!-- (selectedTabChange)="tabChange($event)" -->
+          <mat-tab-group [selectedIndex]="matTab2" class="mat-tab-group12">
+            <mat-tab label="{{ (!isTablet ? 'LimitOrder' : 'Limit' ) | tx}}">
+              <app-limit-order [mainPair]="mainPair" [wallets]="wallets" [socketstatus]="socketstatus"
+                [orderType]="orderType12" [isLogin]="isLogin" [isMobileTrade]="isMobile">
+              </app-limit-order>
+            </mat-tab>
+            <mat-tab label="{{'Market' | tx}}">
+              <app-market-order [sellOrderExit]="sellOrderExit" [buyOrderExit]="buyOrderExit" [buyOrders]="buyOrders"
+                [sellOrders]="sellOrders" [mainPair]="mainPair" [wallets]="wallets" [socketstatus]="socketstatus"
+                [orderType]="orderType12" [isLogin]="isLogin" [isMobileTrade]="isMobile">
+              </app-market-order>
+            </mat-tab>
+            <mat-tab label="{{ ( !isTablet ? 'StopLimit' : 'Stop' ) | tx}}">
+              <app-stop-order [mainPair]="mainPair" [wallets]="wallets" [orderType]="orderType12" [isLogin]="isLogin"
+                [isMobileTrade]="isMobile">
+              </app-stop-order>
+            </mat-tab>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <span>{{ 'COCO'  | tx}}</span>
+                <div class="matTooltip22 d-inline-block">
+                  <button class="btn-trans"
+                    (click)="matTooltipToggle(cocott, tooltipMessage['coco'],'coco-tooltip-panel')">
+                    <img src="assets/images/svg/info.svg" />
+                  </button>
+                  <button class="btn-trans" #cocott="matTooltip" matTooltip="message" matTooltipClass="coco-tooltip"
+                    aria-label="Button that displays" matTooltipPosition="above">
+                  </button>
+                </div>
+              </ng-template>
+              <app-coco-order [mainPair]="mainPair" [wallets]="wallets" [orderType]="orderType12" [isLogin]="isLogin"
+                [isMobileTrade]="isMobile">
+              </app-coco-order>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+    <div class="tradePanel-bottom">
+      <ul class="links12">
+        <li>
+          <a *ngIf="!socketstatus"><span class="icon socket-status disconnect"></span>
+            {{'Disconnected' | tx}}</a>
+          <a *ngIf="socketstatus"><span class="icon socket-status connect"></span> {{'Connected' | tx}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="trade-popup" *ngIf="isMobile && isBuySellTab">
+      <div *ngIf="!togglechart" class="row buySellOrder-panel">
+        <div class="col-xs-8">
+          <div class="subpanel buySell-panel">
+            <ul class="buySell-tabs" *ngIf="isMobile">
+              <li>
+                <button *ngFor="let ordertype of orderType12"
+                  [ngClass]="{'buy':selectedStatus[ordertype] && ordertype === 'Buy' ,'sell':selectedStatus[ordertype] && ordertype === 'Sell'}"
+                  (click)="buySell_Popup(ordertype)">
+                  {{ordertype | tx}}
+                </button>
+              </li>
+            </ul>
+            <div class="buySell-select-wrap">
+              <span class="select-caret">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="5" viewBox="0 0 9 5">
+                  <path id="chevron-right" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                    d="M0,8,4,4,0,0" transform="translate(8.5 0.5) rotate(90)" />
+                </svg>
+              </span>
+              <select class="buySell-select" (change)="orderTabChange($event)" (click)="selectfocusIn($event)">
+                <option value="0">{{'LimitOrder' | tx}}</option>
+                <option value="1">{{'MarketOrder' | tx}}</option>
+                <option value="2">{{'StopLimit' | tx}}</option>
+                <option value="3">{{'COCO' | tx}}</option>
+              </select>
+            </div>
+            <div [@.disabled]="true" class="tab1 tab-small">
+              <mat-tab-group [selectedIndex]="selectedOrderTab">
+                <mat-tab label="Limit">
+                  <app-limit-order [mainPair]="mainPair" [wallets]="wallets" [orderType]="orderType13"
+                    [socketstatus]="socketstatus" [isLogin]="isLogin" [isMobileTrade]="isMobile">
+                  </app-limit-order>
+                </mat-tab>
+                <mat-tab label="Market">
+                  <app-market-order [buyOrders]="buyOrders" [sellOrderExit]="sellOrderExit"
+                    [buyOrderExit]="buyOrderExit" [sellOrders]="sellOrders" [mainPair]="mainPair" [wallets]="wallets"
+                    [orderType]="orderType13" [socketstatus]="socketstatus" [isLogin]="isLogin"
+                    [isMobileTrade]="isMobile">
+                  </app-market-order>
+                </mat-tab>
+                <mat-tab label="Stop Limit">
+                  <app-stop-order [mainPair]="mainPair" [wallets]="wallets" [orderType]="orderType13"
+                    [isLogin]="isLogin" [isMobileTrade]="isMobile">
+                  </app-stop-order>
+                </mat-tab>
+                <mat-tab>
+                  <ng-template mat-tab-label>
+                    <span>{{ 'COCO'  | tx}}</span>
+                    <div class="matTooltip22 d-inline-block">
+                      <button class="btn-trans"
+                        (click)="matTooltipToggle(cocott, tooltipMessage['coco'],'coco-tooltip-panel')">
+                        <img src="assets/images/svg/info.svg" />
+                      </button>
+                      <button class="btn-trans" #cocott="matTooltip" matTooltip="message" matTooltipClass="coco-tooltip"
+                        aria-label="Button that displays" matTooltipPosition="above">
+                      </button>
+                    </div>
+                  </ng-template>
+                  <app-coco-order [mainPair]="mainPair" [wallets]="wallets" [orderType]="orderType13"
+                    [isLogin]="isLogin" [isMobileTrade]="isMobile">
+                  </app-coco-order>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4 order-panel iphnfx1">
+          <div class="subpanel order-table">
+            <div class="subpanel-header">
+              <div class="subpanel-header-right ml-auto">
+                <div class="sub-title mr-10">{{'Group' | tx}}:</div>
+                <div class="dropdown dropdown12 dropdown-sm group-dropdown dropdown-lightblue"
+                  [attr.dropdown-toggle]="dropdownStatus['group']">
+                  <div class="dropdown-backdrop" (click)="dropdownToggle('group')">
+                  </div>
+                  <button class="dropdown-toggle" type="button" (click)="dropdownToggle('group')">
+                    {{ ratePrecision }} <span class="dropdown-icon">
+                      <i class="material-icons">
+                        expand_more
+                      </i>
+                    </span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <ng-container *ngFor="let group of rateGroup">
+                      <li [class.active]="group === ratePrecision"><a
+                          (click)="selectDropdownValue(group)">{{ group }}</a>
+                      </li>
+                    </ng-container>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <table class="table1">
+              <thead>
+                <tr>
+                  <th>{{'Price' | tx}}</th>
+                  <th>{{'Amount' | tx}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i of createRange(9 - groupedSell.length)">
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+                <ng-container
+                  *ngFor="let order of groupedSell | filterArray:(selectedOrderTab === 2 ? 10 : (selectedOrderTab === 3 ? 11 :  9)) :true:isMobile ? false : false; let i = index">
+                  <tr [class.active]="sellOrderExit[order.rate]" class="tr-red">
+                    <td (click)="pickRate(order.rate)" class="text-danger">
+                      <span [innerHTML]="decimal_trunc(order.rate, ratePrecision)"></span>
+                    </td>
+                    <td (click)="pickRate(order.rate)">
+                      <span [innerHTML]="decimal_format(order.quantity, mainPair.marketPrecision)"></span>
+                      <span class="tr-span" data-id="{{getSellCount(i)}}"
+                        [ngStyle]="{'width': (getSellCount(i) / totalOrderQuantity.sell)*100 + '%'}"></span>
+                    </td>
+                  </tr>
+                </ng-container>
+                <tr class="tr-prate">
+                  <th colspan="3" class="th-prate">
+                    <div>
+                      <strong (click)="pickRate(mainPair.rate)"
+                        [ngClass]="{'text-danger': mainPair.trendUp === false}">{{mainPair.rate ===
+                                                    undefined ? 'N/A' : (mainPair.rate).toFixedFloor(mainPair.basePrecision) }}</strong>
+                      <span>${{ dollarPrice(mainPair.rateUsd)}}</span>
+                    </div>
+                  </th>
+                </tr>
+              </tbody>
+              <tbody>
+                <ng-container
+                  *ngFor="let order of groupedBuy | filterArray:(selectedOrderTab === 2 ? 10 : (selectedOrderTab === 3 ? 11 :  9)):false:false; let i = index">
+                  <tr [class.active]="buyOrderExit[order.rate]" class="tr-green">
+                    <td (click)="pickRate(order.rate)" class="text-success"><span class="psrv1"
+                        [innerHTML]="decimal_trunc(order.rate, ratePrecision)"></span>
+                    </td>
+                    <td (click)="pickRate(order.rate)">
+                      <span [innerHTML]="decimal_format(order.quantity, mainPair.marketPrecision)"></span>
+                      <span class="tr-span"
+                        [ngStyle]="{'width': (getBuyCount(i) / totalOrderQuantity.buy)*100 + '%'}"></span>
+                    </td>
+                  </tr>
+                </ng-container>
+                <tr *ngFor="let i of createRange(9 - groupedBuy.length)">
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="orderHistoryTab32" [class.close]="togglechart">
+        <div class="subpanel-header">
+          <div class="subpanel-header-left">
+            <h6 class="title">{{'OpenOrders' | tx}}</h6>
+          </div>
+          <div class="subpanel-header-right">
+            <div class="orderHistoryTab-actions32">
+              <button type="button" *ngIf="isLogin && matTab4 === 0 && isTablet" class="btn1 btn1-outline"
+                (click)="openOrderCancelModal()">{{'CancelAll' | tx}}</button>
+              <button type="button" class="chart-toggle btn-trans" (click)='toggleChart("toggleorder")'>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="isLogin && isMobile">
+          <div class="panel table-panel"
+            *ngFor="let order of activeOrders() | paginate: { itemsPerPage: activeOrders().length, currentPage: activeOrderMobilePager1, id: 'activeOrderMobilePager1' }; let i = index">
+            <div (click)="panelToggle(i,'oorder')" class="panel-heading">
+              <div class="filled-progress" *ngIf="Number(order[7]) !== 0">
+                <div class="mat-progress-bar-label">
+                  {{decimal_floor((Number(order[7]) / Number(order[6])) * 100, 0)}}%</div>
+                <mat-progress-bar color="accent" mode="determinate"
+                  [value]="((Number(order[7]) / Number(order[6])) * 100)">
+                </mat-progress-bar>
+              </div>
+              <div class="panel-heading-left">
+                <img src="assets/images/svg/icon_{{order[3] == 0 ? 'buy' : 'sell'}}.svg">
+                <div>
+                  <h6>{{allPairs.getPair(order[1]).name}}</h6>
+                  <div class="order-date32">{{order[10] | date:dateTimeFormat}}</div>
+                </div>
+              </div>
+              <div class="panel-heading-right">
+                <div class="order-summary32">
+                  <div class="order-summary-item">
+                    <strong class="order-summary-title">{{'Price' | tx}}:</strong>
+                    <strong
+                      class="order-summary-price">{{ oType[order[2]] === oType[0] ? '-' : decimal_floor(order[5], allPairs.getPair(order[1]).basePrecision)}}</strong>
+                    {{ oType[order[2]] === oType[0] ? '' : allPairs.getPair(order[1]).baseCurrency.symbol}}
+                  </div>
+                  <div class="order-summary-item">
+                    <strong>Amount:</strong>
+                    {{decimal_floor(order[6], allPairs.getPair(order[1]).marketPrecision)}}
+                    {{allPairs.getPair(order[1]).marketCurrency.symbol}}
+                  </div>
+                </div>
+              </div>
+              <div class="panel-expand">
+                <i class="material-icons add-icon" [hidden]="panelExpandStatus.oorder[i]">add circle</i>
+                <i class="material-icons remove-icon" [hidden]="!panelExpandStatus.oorder[i]">remove circle</i>
+              </div>
+            </div>
+            <div class="panel-collapse" [hidden]="!panelExpandStatus.oorder[i]">
+              <div class="panel-body">
+                <ul class="panel-list">
+                  <li><strong>{{'OrderType' | tx}}:</strong>
+                    {{ oType[order[2]] | tx }}</li>
+                  <li>
+                    <strong>{{'TriggerCondition' | tx}}:</strong>
+                    <!-- {{ triggerCondition(order) }} -->
+                    {{order[8] === '-' ? '-' : decimal_floor(order[8], allPairs.getPair(order[1]).basePrecision)}}
+                    <span class="abbr">&nbsp;
+                      {{order[8] === '-' ? '' :  ' ' + allPairs.getPair(order[1]).baseCurrency.symbol}}
+                    </span>
+                  </li>
+                  <li>
+                    <strong>{{'Price' | tx}}:</strong>
+                    {{ oType[order[2]] === oType[0] ? '-' : decimal_floor(order[5], allPairs.getPair(order[1]).basePrecision)}}
+                    <span class="abbr">&nbsp;
+                      {{ oType[order[2]] === oType[0] ? '' : allPairs.getPair(order[1]).baseCurrency.symbol}}</span>
+                  </li>
+                  <li class="justify-content-between"><strong class="flx-none">{{'Filled' | tx}}:</strong>
+                    <div class="filled-progress32" *ngIf="Number(order[7]) !== 0">
+                      <div class="mat-progress-bar-label">
+                        {{decimal_floor((Number(order[7]) / Number(order[6])) * 100, 0)}}%</div>
+                      <mat-progress-bar color="accent" mode="determinate"
+                        [value]="((Number(order[7]) / Number(order[6])) * 100)">
+                      </mat-progress-bar>
+                    </div>
+                    {{ decimal_format_fix((Number(order[7]) / Number(order[6])) * 100) +' %' }}
+                  </li>
+                  <li><strong>{{'Total' | tx}}:</strong>
+                    {{oType[order[2]] !== oType[0] ? decimal_floor(Number(order[5] * order[6]), allPairs.getPair(order[1]).basePrecision) : '-'}}
+                    <span class="abbr">&nbsp;
+                      {{oType[order[2]] !== oType[0] ? allPairs.getPair(order[1]).baseCurrency.symbol : ''}}
+                    </span>
+
+                  </li>
+                </ul>
+                <div class="btn-ordercancel text-center mt-10">
+                  <ng-container *ngIf="order[9] !== 2">
+                    <button *ngIf="order[9] === 0 || order[9] === 3" class="btn1 btn1-xs" (click)="cancelOrder(order)">
+                      {{'Cancel' | tx}}
+                    </button>
+                  </ng-container>
+                  <span *ngIf="order[9] === 4">
+                    <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="20px" viewBox="0 0 128 128"
+                      xml:space="preserve">
+                      <g transform="rotate(135 64 64)">
+                        <circle cx="16" cy="64" r="16" fill="#ffffff" fill-opacity="1" />
+                        <circle cx="16" cy="64" r="14.344" fill="#ffffff" fill-opacity="1"
+                          transform="rotate(45 64 64)" />
+                        <circle cx="16" cy="64" r="12.531" fill="#ffffff" fill-opacity="1"
+                          transform="rotate(90 64 64)" />
+                        <circle cx="16" cy="64" r="10.75" fill="#ffffff" fill-opacity="1"
+                          transform="rotate(135 64 64)" />
+                        <circle cx="16" cy="64" r="10.063" fill="#ffffff" fill-opacity="1"
+                          transform="rotate(180 64 64)" />
+                        <circle cx="16" cy="64" r="8.063" fill="#ffffff" fill-opacity="1"
+                          transform="rotate(225 64 64)" />
+                        <circle cx="16" cy="64" r="6.438" fill="#ffffff" fill-opacity="1"
+                          transform="rotate(270 64 64)" />
+                        <circle cx="16" cy="64" r="5.375" fill="#ffffff" fill-opacity="1"
+                          transform="rotate(315 64 64)" />
+                        <animateTransform attributeName="transform" type="rotate"
+                          values="0 64 64;315 64 64;270 64 64;225 64 64;180 64 64;135 64 64;90 64 64;45 64 64"
+                          calcMode="discrete" dur="720ms" repeatCount="indefinite" />
+                      </g>
+                    </svg>
+                  </span>
+                  <span *ngIf="order[9] === 2" class="material-icons text-success">check_circle</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <pagination-controls style="text-align: right"
+                        *ngIf="activeOrderLength ? activeOrderLength > 5 : false" [directionLinks]="false"
+                        class="dark-pag" (pageChange)="activeOrderMobilePager1 = $event" id="activeOrderMobilePager1">
+                    </pagination-controls>
+          <div class="panel table-panel empty-panel" *ngIf="(activeOrderLength ? activeOrderLength : 0) < 1">
+            <div class="panel-body">
+              <p>{{'Youhavenoopenorders' | tx}}</p>
+            </div>
+          </div>
+        </ng-container>
+        <div class="acct-link" *ngIf="!isLogin">
+          <a [routerLink]="['/login']">{{'lin' | tx}}</a>
+          <span>{{'or' | tx}}</span>
+          <a [routerLink]="['/signup']">{{'SignUp' | tx}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

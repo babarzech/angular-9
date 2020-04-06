@@ -1,0 +1,891 @@
+<div  [@.disabled]="true" class="subpanel tab1 tab-small orderHistoryTab32" [class.close]="togglechart"
+[ngStyle]="!isMobile ? '' : {'display': isOrderTab ? '' : 'none'}" #ordHistTab32>
+<div class="orderHistoryTab-actions32" *ngIf="(isTablet && matTab4===0) || !isMobile">
+    <div class="horder-pair" [hidden]="matTab4===3">
+        <mat-slide-toggle *ngIf="!isTablet" (change)="hideOtherPair($event)" [checked]="defaultSetting.hideOhter">
+            {{'HideOtherPairs' | tx}}
+        </mat-slide-toggle>
+        <mat-slide-toggle *ngIf="isTablet" (change)="hideOtherPair($event)" [checked]="defaultSetting.hideOhter">
+          {{'HideOther' | tx}}
+        </mat-slide-toggle>
+    </div>
+    <div class="horder-pair" *ngIf="matTab4 === 3">
+        <mat-slide-toggle (change)="hideOtherPair($event,'smallBlnc')"
+            [checked]="defaultSetting.hideSmallBalance">
+          {{'HideSmallBalances' | tx}}
+        </mat-slide-toggle>
+    </div>
+    <button type="button" *ngIf="!isMobile && isLogin && matTab4 === 0 " class="btn1 btn1-outline cancelallorder"
+      (click)="openOrderCancelModal()">{{'CancelAll' | tx}}</button>
+    <button type="button" *ngIf="!isMobile" class="chart-toggle btn-trans"
+        (click)='toggleChart(stockChart.offsetTop)'>
+        <span></span>
+    </button>
+    <button type="button" *ngIf="isMobile  && isLogin && matTab4 === 0 " class="btn1 btn1-outline cancelallorder"
+        (click)="openOrderCancelModal()">{{'CancelAll' | tx}}</button>
+</div>
+<mat-tab-group [(selectedIndex)]="matTab4" class="mat-tab-group-trade"
+(selectedTabChange)="historyTabChange()"
+[ngStyle]="!isMobile ? (!togglechart ? {'height': ((size.height - stockChart.offsetHeight - stockChart.offsetTop + 3))+'px'} : {'height': (size.height - chartOffsetTop - (26)) + 'px'}) : ''">
+<mat-tab label= "{{'OpenOrders' | tx}}">
+    <table class="table1 medium" *ngIf="isLogin && !isMobile"
+        [class.empty-tbl]='(activeOrderLength ? activeOrderLength : 0) < 1'>
+        <thead>
+            <tr>
+                <th title="Date" class="dn-v1">{{'Date' | tx}}</th>
+                <th title="Coin" class="dn-v1">{{'Coin' | tx}}</th>
+                <th title="Type" class="dn-v1">{{'Type' | tx}}</th>
+                <th title="Side" class="dn-v2 ordside32">{{'Side' | tx}}</th>
+                <th title="Symbol" class="dn-v2 ordname32">{{'Symbol' | tx}}</th>
+                <th class="dn-v2 ordtype32 dropdown-wrap">
+                    <div class="dropdown dropdown12 dropdown-lightblue"
+                        [attr.dropdown-toggle]="dropdownStatus['ordType32']">
+                        <div class="dropdown-backdrop" (click)="dropdownToggle('ordType32')">
+                        </div>
+                        <button class="dropdown-toggle" type="button"
+                            (click)="dropdownToggle('ordType32')">
+                            {{ (dropdownModel.ordType32 !== undefined ? dropdownModel.ordType32 : 'OrderType') | tx}}
+                            <span class="dropdown-icon">
+                                <i class="material-icons">
+                                    expand_more
+                                </i>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let ordType32 of orderType32;let i=index"><a
+                                    (click)="selectDropdownValue(ordType32,i)">{{ordType32 | tx}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </th>
+                <th title="Side" class="dn-v1">{{'Side' | tx}}</th>
+                <th title="Amount">{{'Amount' | tx}}</th>
+                <th title="Price" class="dn-v1">{{'Price' | tx}}</th>
+                <th title="Order Price" class="dn-v2">{{'ORDERPRICE' | tx}}</th>
+                <th title="Trigger Condition">{{'TriggerCondition' | tx}}</th>
+                <th title="Total" class="dn-v1">{{'Total' | tx}}</th>
+                <th title="Filled" class="ordfilled32">{{'Filled' | tx}}</th>
+                <th title="Date" class="dn-v2">{{'Date' | tx}}</th>
+                <th title="Actions" class="ordaction32">{{'Actions' | tx}}</th>
+            </tr>
+        </thead>
+        <tbody class="mcScrollbar32 openorder-body" [hidden]="activeOrderLength === 0"
+            [ngStyle]="{'height': ordHistTab32.offsetHeight - size.orderHistoryTabHeight - size.orderHistoryTabTheadHeight - (tversion2 ? 5 : 0) + 'px'}">
+            <!-- <ng-container
+                *ngFor="let order of activeOrders()  | paginate: { itemsPerPage: (togglechart ? (tversion2 ? orderToshow32[0] : 10) : (tversion2 ? orderToshow32[0] : 5)), currentPage: userOrdersPager, id: 'userOrdersPager' }">
+                 -->
+                 <!-- <ng-container
+                *ngFor="let order of activeOrders() | paginate: { itemsPerPage: (togglechart ? (orderToshow32[0]) :
+                (orderToshow32[0])), currentPage: userOrdersPager, id: 'userOrdersPager' }"> -->
+                <ng-container
+                *ngFor="let order of activeOrders()">
+                <tr [ngClass]="{'disable-order': stopOrderPercentageChange(order) }">
+                    <!-- <td class="dn-v1">{{order[10] | date:dateTimeFormat}}</td> -->
+                    <td class="ordside32">
+                        <img src="assets/images/svg/icon_{{order[3] == 0 ? 'buy' : 'sell'}}.svg" />
+                    </td>
+                    <td class="ordname32">{{allPairs.getPair(order[1]).name}}</td>
+                    <td class="ordtype32">{{oType[order[2]] | tx }}</td>
+                    <!-- <td class="dn-v1"
+                        [ngClass]="{'text-success': order[3] == 0, 'text-danger': order[3] == 1}">
+                        {{order[3] == 0 ? 'Buy' : 'Sell'}}</td> -->
+                    <td>
+                        {{decimal_floor(order[6], allPairs.getPair(order[1]).marketPrecision)}}
+                        <span
+                            class="opacity-5">{{allPairs.getPair(order[1]).marketCurrency.symbol}}</span>
+                    </td>
+                    <td>
+                        {{ oType[order[2]] === oType[0] ? '-' : decimal_floor(order[5], allPairs.getPair(order[1]).basePrecision)}}
+                        <span
+                            class="opacity-5">{{ oType[order[2]] === oType[0] ? '' : allPairs.getPair(order[1]).baseCurrency.symbol}}</span>
+                    </td>
+                    <td>
+                        <!-- 9 = status and 2 ordertype -->
+                        {{ order[8] === '-' ? '-' : triggerCondition(order) +  decimal_floor(order[8], allPairs.getPair(order[1]).basePrecision) }}
+                        <span
+                            class="opacity-5">{{ order[8] === '-' ? '' : allPairs.getPair(order[1]).baseCurrency.symbol }}</span>
+                    </td>
+                    <!--order[4] * order[6]-->
+                    <!-- <td class="dn-v1">
+                        {{oType[order[2]] !== oType[0] ? decimal_floor(Number(order[5] * order[6]), allPairs.getPair(order[1]).basePrecision) + ' ' + allPairs.getPair(order[1]).baseCurrency.symbol : '-'}}
+                        <span
+                            class="opacity-5">{{oType[order[2]] !== oType[0] ? allPairs.getPair(order[1]).baseCurrency.symbol : ''}}</span>
+                    </td> -->
+                    <td class="ordfilled32">
+                        {{ decimal_format_fix((Number(order[7]) / Number(order[6])) * 100) +' %' }}
+
+                        <div class="mat-progress" *ngIf="Number(order[7]) !== 0">
+                            <mat-progress-bar color="accent" mode="determinate"
+                                [value]="(Number(order[7]) / Number(order[6])) * 100">
+                            </mat-progress-bar>
+                        </div>
+                    </td>
+                    <!-- <td *ngIf="!isMobile">{{this.OrderStatus[order.status]}}</td> -->
+                    <td class="opacity-5">{{order[10] | date:dateTimeFormat}}</td>
+                    <!-- <td class="dn-v1">
+                        <ng-container *ngIf="order[9] !== 2">
+                            <button *ngIf="order[9] === 0 || order[9] === 3"
+                                class="btn1 btn1-xs btn1-outline btn1-white"
+                                (click)="cancelOrder(order)">
+                                {{'Cancel' | tx}}
+                            </button>
+                        </ng-container>
+                        <span *ngIf="order[9] === 4">
+                            <svg xmlns:svg="http://www.w3.org/2000/svg"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0"
+                                width="20px" viewBox="0 0 128 128" xml:space="preserve">
+                                <g transform="rotate(135 64 64)">
+                                    <circle cx="16" cy="64" r="16" fill="#ffffff"
+                                        fill-opacity="1" />
+                                    <circle cx="16" cy="64" r="14.344" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(45 64 64)" />
+                                    <circle cx="16" cy="64" r="12.531" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(90 64 64)" />
+                                    <circle cx="16" cy="64" r="10.75" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(135 64 64)" />
+                                    <circle cx="16" cy="64" r="10.063" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(180 64 64)" />
+                                    <circle cx="16" cy="64" r="8.063" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(225 64 64)" />
+                                    <circle cx="16" cy="64" r="6.438" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(270 64 64)" />
+                                    <circle cx="16" cy="64" r="5.375" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(315 64 64)" />
+                                    <animateTransform attributeName="transform" type="rotate"
+                                        values="0 64 64;315 64 64;270 64 64;225 64 64;180 64 64;135 64 64;90 64 64;45 64 64"
+                                        calcMode="discrete" dur="720ms" repeatCount="indefinite" />
+                                </g>
+                            </svg>
+                        </span>
+                        <span
+                            *ngIf="order[9] !== 0 && order[9] !== 2 && order[9] !== 3 && order[9] !== 4"
+                            class="material-icons text-success">check_circle</span>
+                    </td> -->
+                    <td class="ordaction32">
+                        <ng-container *ngIf="order[9] !== 4">
+                            <button class="btn-trans" (click)="cancelOrder(order)">
+                                <img class="normal" src="assets/images/svg/x.svg" alt="x_active" />
+                                <img class="hoverd" src="assets/images/svg/x_active.svg"
+                                    alt="x_active" />
+                            </button>
+                        </ng-container>
+                        <span *ngIf="order[9] === 4">
+                            <svg xmlns:svg="http://www.w3.org/2000/svg"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0"
+                                width="20px" viewBox="0 0 128 128" xml:space="preserve">
+                                <g transform="rotate(135 64 64)">
+                                    <circle cx="16" cy="64" r="16" fill="#ffffff"
+                                        fill-opacity="1" />
+                                    <circle cx="16" cy="64" r="14.344" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(45 64 64)" />
+                                    <circle cx="16" cy="64" r="12.531" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(90 64 64)" />
+                                    <circle cx="16" cy="64" r="10.75" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(135 64 64)" />
+                                    <circle cx="16" cy="64" r="10.063" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(180 64 64)" />
+                                    <circle cx="16" cy="64" r="8.063" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(225 64 64)" />
+                                    <circle cx="16" cy="64" r="6.438" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(270 64 64)" />
+                                    <circle cx="16" cy="64" r="5.375" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(315 64 64)" />
+                                    <animateTransform attributeName="transform" type="rotate"
+                                        values="0 64 64;315 64 64;270 64 64;225 64 64;180 64 64;135 64 64;90 64 64;45 64 64"
+                                        calcMode="discrete" dur="720ms" repeatCount="indefinite" />
+                                </g>
+                            </svg>
+                        </span>
+                        <span
+                            *ngIf="order[9] !== 0 && order[9] !== 2 && order[9] !== 3 && order[9] !== 4"
+                            class="material-icons text-success">check_circle</span>
+                    </td>
+                </tr>
+            </ng-container>
+            <!-- <pagination-controls
+                *ngIf="tversion2 ? false : (activeOrderLength ? activeOrderLength > (togglechart ? 10 : 5) : false)"
+                [directionLinks]="false" class="dark-pag" (pageChange)="userOrdersPager = $event"
+                id="userOrdersPager">
+            </pagination-controls> -->
+            <div class="mCS-loader" [hidden]="mcsLoaderStatus">
+                <img src="assets/images/svg/loader.svg" alt=""> {{'Loading' | tx}}...
+            </div>
+            <br clear="both">
+            <br>
+        </tbody>
+        <tbody *ngIf="(activeOrderLength ? activeOrderLength : 0) < 1">
+            <tr>
+                <td colspan="10">{{'Youhavenoope' | tx}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="acct-link" *ngIf="!isLogin">
+        <a [routerLink]="['/login']">{{'lin' | tx}}</a>
+        <span>{{'or' | tx}}</span>
+        <a [routerLink]="['/signup']">{{'SignUp' | tx}}</a>
+    </div>
+    <!-- babar open orders mobile -->
+    <ng-container *ngIf="isLogin && isMobile">
+        <div class="panel table-panel"
+            *ngFor="let order of activeOrders() | paginate: { itemsPerPage: activeOrders().length, currentPage: activeOrderMobilePager, id: 'activeOrderMobilePager' }; let i = index">
+            <div [ngClass]="{'disable-order': stopOrderPercentageChange(order) }" (click)="panelToggle(i,'oorder')" class="panel-heading">
+                <div class="filled-progress" *ngIf="Number(order[7]) !== 0">
+                    <div class="mat-progress-bar-label">
+                        {{decimal_floor((Number(order[7]) / Number(order[6])) * 100, 0)}}%</div>
+                    <mat-progress-bar color="accent" mode="determinate"
+                        [value]="((Number(order[7]) / Number(order[6])) * 100)">
+                    </mat-progress-bar>
+                </div>
+                <div class="panel-heading-left">
+                    <img src="assets/images/svg/icon_{{order[3] == 0 ? 'buy' : 'sell'}}.svg">
+                    <div>
+                        <h6>{{allPairs.getPair(order[1]).name}}</h6>
+                        <div class="order-date32">{{order[10] | date:dateTimeFormat}}</div>
+                    </div>
+                </div>
+                <div class="panel-heading-right">
+                    <div class="order-summary32">
+                        <div class="order-summary-item">
+                            <strong class="order-summary-title">{{'Price' | tx}}:</strong>
+                            <strong
+                                class="order-summary-price">{{ oType[order[2]] === oType[0] ? '-' : decimal_floor(order[5], allPairs.getPair(order[1]).basePrecision)}}</strong>
+                            {{ oType[order[2]] === oType[0] ? '' : allPairs.getPair(order[1]).baseCurrency.symbol}}
+                        </div>
+                        <div class="order-summary-item">
+                            <strong>{{'Amount' | tx}}:</strong>
+                            {{decimal_floor(order[6], allPairs.getPair(order[1]).marketPrecision)}}
+                            {{allPairs.getPair(order[1]).marketCurrency.symbol}}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-expand">
+                    <i class="material-icons add-icon" [hidden]="panelExpandStatus.oorder[i]">add
+                        circle</i>
+                    <i class="material-icons remove-icon"
+                        [hidden]="!panelExpandStatus.oorder[i]">remove
+                        circle</i>
+                </div>
+            </div>
+            <div class="panel-collapse" [hidden]="!panelExpandStatus.oorder[i]">
+                <div class="panel-body">
+                    <ul class="panel-list">
+                        <li><strong>{{'OrderType' | tx}}:</strong>
+                            {{ oType[order[2]] | tx }}</li>
+                        <li><strong>{{'TriggerCondition' | tx}}:</strong>
+                            {{ order[8] === '-' ? '-' : triggerCondition(order) + decimal_floor(order[8], allPairs.getPair(order[1]).basePrecision) }}
+                            <span
+                                class="abbr">&nbsp;{{ order[8] === '-' ? '' : allPairs.getPair(order[1]).baseCurrency.symbol }}</span>
+                        </li>
+                        <li><strong>{{'Price' | tx}}:</strong>
+                            {{ oType[order[2]] === oType[0] ? '-' : decimal_floor(order[5], allPairs.getPair(order[1]).basePrecision)}}
+                            <span class="abbr">&nbsp;
+                                {{ oType[order[2]] === oType[0] ? '' : allPairs.getPair(order[1]).baseCurrency.symbol}}</span>
+                        </li>
+                        <li class="justify-content-between"><strong
+                                class="flx-none">{{'Filled' | tx}}:</strong>
+                            <div class="filled-progress32" *ngIf="Number(order[7]) !== 0">
+                                <div class="mat-progress-bar-label">
+                                    {{decimal_floor((Number(order[7]) / Number(order[6])) * 100, 0)}}%
+                                </div>
+                                <mat-progress-bar color="accent" mode="determinate"
+                                    [value]="((Number(order[7]) / Number(order[6])) * 100)">
+                                </mat-progress-bar>
+                            </div>
+                            {{ decimal_format_fix((Number(order[7]) / Number(order[6])) * 100) +' %' }}
+                        </li>
+                        <li><strong>{{'Total' | tx}}:</strong>
+                            {{oType[order[2]] !== oType[0] ? decimal_floor(Number(order[5] * order[6]), allPairs.getPair(order[1]).basePrecision) : '-'}}
+                            <span class="abbr">&nbsp;
+                                {{oType[order[2]] !== oType[0] ? allPairs.getPair(order[1]).baseCurrency.symbol : ''}}
+                            </span>
+
+                        </li>
+                    </ul>
+                    <div class="btn-ordercancel text-center mt-10">
+                        <ng-container *ngIf="order[9] !== 2">
+                            <button *ngIf="order[9] === 0 || order[9] === 3" class="btn1 btn1-xs"
+                                (click)="cancelOrder(order)">{{'Cancel' | tx}}</button>
+                        </ng-container>
+                        <span *ngIf="order[9] === 4">
+                            <svg xmlns:svg="http://www.w3.org/2000/svg"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0"
+                                width="20px" viewBox="0 0 128 128" xml:space="preserve">
+                                <g transform="rotate(135 64 64)">
+                                    <circle cx="16" cy="64" r="16" fill="#ffffff"
+                                        fill-opacity="1" />
+                                    <circle cx="16" cy="64" r="14.344" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(45 64 64)" />
+                                    <circle cx="16" cy="64" r="12.531" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(90 64 64)" />
+                                    <circle cx="16" cy="64" r="10.75" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(135 64 64)" />
+                                    <circle cx="16" cy="64" r="10.063" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(180 64 64)" />
+                                    <circle cx="16" cy="64" r="8.063" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(225 64 64)" />
+                                    <circle cx="16" cy="64" r="6.438" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(270 64 64)" />
+                                    <circle cx="16" cy="64" r="5.375" fill="#ffffff"
+                                        fill-opacity="1" transform="rotate(315 64 64)" />
+                                    <animateTransform attributeName="transform" type="rotate"
+                                        values="0 64 64;315 64 64;270 64 64;225 64 64;180 64 64;135 64 64;90 64 64;45 64 64"
+                                        calcMode="discrete" dur="720ms" repeatCount="indefinite" />
+                                </g>
+                            </svg>
+                        </span>
+                        <span *ngIf="order[9] === 2"
+                            class="material-icons text-success">check_circle</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <pagination-controls style="text-align: right"
+                            *ngIf="activeOrderLength ? activeOrderLength > 5 : false" [directionLinks]="false"
+                            class="dark-pag" (pageChange)="activeOrderMobilePager = $event"
+                            id="activeOrderMobilePager">
+                        </pagination-controls> -->
+        <div class="panel table-panel empty-panel"
+            *ngIf="(activeOrderLength ? activeOrderLength : 0) < 1">
+            <div class="panel-body">
+                <p>{{'Youhavenoopenorders' | tx}}</p>
+            </div>
+        </div>
+    </ng-container>
+</mat-tab>
+<mat-tab label="{{'OrderHistory' | tx}}">
+    <!-- [ngClass]="{'noScollbar': (orderHistoryLength !== 0 ? orderHistoryLength : 0) < 1}"> -->
+    <table class="table1 medium ordhistory-tbl32" *ngIf="isLogin && !isMobile"
+        [class.empty-tbl]='(orderHistoryLength ? orderHistoryLength : 0) < 1'>
+        <thead>
+            <tr>
+                <th title="Date" class="dn-v1">{{'Date' | tx}}</th>
+                <th title="Coin" class="dn-v1">{{'Coin' | tx}}</th>
+                <th title="Type" class="dn-v1">{{'Type' | tx}}</th>
+                <th title="Side" class="dn-v2 ordside32">{{'Side' | tx}}</th>
+                <th title="Symbol" class="dn-v2 ordname32">{{'Symbol' | tx}}</th>
+                <th class="dn-v2 ordtype32 dropdown-wrap">
+                    <div class="dropdown dropdown12 dropdown-lightblue"
+                        [attr.dropdown-toggle]="dropdownStatus['ordType32']">
+                        <div class="dropdown-backdrop" (click)="dropdownToggle('ordType32')">
+                        </div>
+                        <button class="dropdown-toggle" type="button"
+                            (click)="dropdownToggle('ordType32')">
+                            {{ (dropdownModel.ordType32 ? dropdownModel.ordType32 : 'OrderType') | tx }}
+                            <span class="dropdown-icon">
+                                <i class="material-icons">
+                                    expand_more
+                                </i>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let ordType32 of orderType32; let i = index"><a
+                                    (click)="selectDropdownValue(ordType32, i)">{{ ordType32 | tx}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </th>
+                <th title="Side" class="dn-v1">{{'Side' | tx}}</th>
+                <th title="Price">{{'Price' | tx}}</th>
+                <th title="Amount">{{'Amount' | tx}}</th>
+                <th title="Trigger Condition">{{'TriggerCondition' | tx}}</th>
+                <th title="Filled">{{'Filled' | tx}}</th>
+                <th title="Average Price">{{'AveragePrice' | tx}}</th>
+                <th title="Total">{{'Total' | tx}}</th>
+                <th title="Status" class="dn-v1">{{'Status' | tx}}</th>
+                <th title="Details" class="dn-v1">{{'Details' | tx}}</th>
+                <th title="Date" class="dn-v2">{{'Date' | tx}}</th>
+                <th title="Status/Details" class="dn-v2 ordstatus32">{{'StatusDetails' | tx}}</th>
+            </tr>
+        </thead>
+        <!-- //babar -->
+        <tbody class="mcScrollbar32" [hidden]="orderHistoryLength === 0"
+            [ngStyle]="{'height': ordHistTab32.offsetHeight - size.orderHistoryTabHeight - size.orderHistoryTabTheadHeight - (tversion2 ? 5 : 0) + 'px'}">
+            <ng-container
+                *ngFor="let order of myHistoryOrders() | paginate: { itemsPerPage: (togglechart ? (tversion2 ? orderToshow32[1] : 10) : (tversion2 ? orderToshow32[1] : 5)), currentPage: userHistoryOrdersPager, id: 'userHistoryOrdersPager' }; let i = index">
+                <tr [ngClass]="{ 'text-danger': order[3] == 1,'disable-order': order[11] === null}"  *ngIf="pairinitialized">
+                    <td class="ordside32">
+                        <img src="assets/images/svg/icon_{{order[3] == 0 ? 'buy' : 'sell'}}.svg" />
+                    </td>
+                    <!-- <td class="dn-v1">{{order[10] | date: dateTimeFormat}}</td> -->
+                    <td class="ordname32">{{allPairs.getPair(order[1]).name}}</td>
+                    <td class="ordtype32">{{oType[order[2]] | tx}}</td>
+                    <!-- <td class="dn-v1"
+                        [ngClass]="{'text-success': order[3] == 0, 'text-danger': order[3] == 1}">
+                        {{order[3] == 0 ? 'Buy' : 'Sell'}}</td> -->
+                    <td>
+                        {{order[2] == 0 ? '-' : decimal_floor(order[5], allPairs.getPair(order[1]).basePrecision) + ' '}}
+                        <span
+                            class="opacity-5">{{order[2] == 0 ? '' : allPairs.getPair(order[1]).baseCurrency.symbol }}</span>
+                    </td>
+                    <td>{{decimal_floor(order[6], allPairs.getPair(order[1]).marketPrecision)}}
+                        <span
+                            class="opacity-5">{{allPairs.getPair(order[1]).marketCurrency.symbol}}</span>
+                    </td>
+                    <td>
+                        {{ order[8] === '-' ? '-' : decimal_floor(order[8], allPairs.getPair(order[1]).basePrecision) + ' '}}
+                        <span
+                            class="opacity-5">{{ order[8] === '-' ? '' :  allPairs.getPair(order[1]).baseCurrency.symbol}}</span>
+                    </td>
+                    <td>
+                        {{ !(order[11]) ? '-' : decimal_floor(order[7], allPairs.getPair(order[1]).marketPrecision) + ' '}}
+                        <span
+                            class="opacity-5">{{ !(order[11]) ? '' : allPairs.getPair(order[1]).marketCurrency.symbol }}</span>
+                    </td>
+                    <td>
+                        {{ !(order[11]) ? '-' : decimal_floor(order[4], allPairs.getPair(order[1]).basePrecision) + ' '}}
+                        <span class="opacity-5">
+                            {{ !(order[11]) ? '' : allPairs.getPair(order[1]).baseCurrency.symbol}}</span>
+                    </td>
+                    <td>
+                        {{  !(order[11]) ? '-' : decimal_floor(Number(order.avgprice), allPairs.getPair(order[1]).basePrecision) + ' '}}
+                        <span
+                            class="opacity-5">{{  !(order[11]) ? '' : allPairs.getPair(order[1]).baseCurrency.symbol}}</span>
+                    </td>
+                    <!-- <td class="dn-v1"><span
+                            [ngClass]="{'text-success': order[9] === 1, 'text-danger':  order[9] === 2}">
+                            {{oStatus[order[9]]}}</span></td> -->
+                    <!-- <td class="order-history-trade-tab dn-v1">
+                        <button type="button" class="btn1 btn1-link"
+                            (click)="historyToggle(i)">{{'Details' | tx}}
+                            <span class="caret"
+                                [class.active]="historyDetailStatus[i]"></span></button>
+                    </td> -->
+                    <td class="opacity-5">{{order[10] | date: dateTimeFormat}}</td>
+                    <td class="ordstatus32">
+                        <!-- [ngClass]="{'text-success': order[9] === 1, 'text-danger': order[9] === 2, 'fill-empty':order[11] == null}" -->
+                        <span class="opacity-5">
+                            {{oStatus[order[9]] | tx}}</span>
+                        <button type="button" *ngIf="order[11] !== null" class="btn1 btn1-link"
+                            (click)="historyToggle(i)">
+                            <i class="material-icons"
+                                [hidden]="historyDetailStatus[i]">add_circle_outline</i>
+                            <i class="material-icons"
+                                [hidden]="!historyDetailStatus[i]">remove_circle_outline</i>
+                        </button>
+                    </td>
+                </tr>
+                <tr [hidden]="!historyDetailStatus[i]">
+                    <td colspan="12" class="history-detailTable">
+                        <div class="text-left ordtotaltrade32">{{'TotalTrade' | tx}}: <span>
+                                {{ decimal_floor(order.avgprice, allPairs.getPair(order[1]).basePrecision) + ' ' }}
+                                <span
+                                    class="opacity-5">{{allPairs.getPair(order[1]).baseCurrency.symbol}}</span>
+                            </span>
+                        </div>
+                        <div class="filltable32">
+                            <table class="table table-bordered table-bg-grey">
+                                <thead>
+                                    <tr>
+                                        <th class="dn-v1">{{'Date' | tx}}</th>
+                                        <th class="dn-v1">{{'TradingPrice' | tx}}</th>
+                                        <th class="dn-v2">{{'Price' | tx}}</th>
+                                        <th>{{'Amount' | tx}}</th>
+                                        <th>{{'FeeSingle' | tx}}</th>
+                                        <th>{{'Total' | tx}}</th>
+                                        <th class="dn-v2">{{'Date' | tx}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let fill of order[11]">
+                                        <!-- <td class="dn-v1">{{ fill[0] | date: dateTimeFormat }}
+                                        </td> -->
+                                        <td>{{ decimal_floor(fill[1], allPairs.getPair(order[1]).basePrecision) }}
+                                            <span
+                                                class="opacity-5">{{order[2] == 0 ? '' : allPairs.getPair(order[1]).baseCurrency.symbol }}</span>
+                                        </td>
+                                        <td>
+                                            {{ decimal_floor(fill[2], allPairs.getPair(order[1]).marketPrecision)}}
+                                            <span
+                                                class="opacity-5">{{allPairs.getPair(order[1]).marketCurrency.symbol}}</span>
+                                        </td>
+                                        <td *ngIf="fill[3] === null">0.00000000</td>
+                                        <td *ngIf="fill[3] !== null">
+                                            {{(fill[3]).split(" ")[0] }}
+                                            <span
+                                                class="opacity-5">{{(fill[3]).split(" ")[1]}}</span>
+                                        </td>
+                                        <td>
+                                            {{decimal_floor(fill[1] * fill[2], allPairs.getPair(order[1]).basePrecision)}}
+                                            <span
+                                                class="opacity-5">{{order[2] == 0 ? '' : allPairs.getPair(order[1]).baseCurrency.symbol }}</span>
+                                        </td>
+                                        <td class="opacity-5">
+                                            {{fill[0] | date: dateTimeFormat}}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="order[11] === null">
+                                        <td colspan="5" class="text-center no-order">{{'YouHaveNoFill' | tx}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+            <!-- <pagination-controls
+                *ngIf="tversion2 ? false : (orderHistoryLength ? orderHistoryLength > (togglechart ? 10 : 5) : false)"
+                [directionLinks]="false" class="dark-pag"
+                (pageChange)="userHistoryOrdersPager = $event" id="userHistoryOrdersPager">
+            </pagination-controls> -->
+            <div class="mCS-loader" [hidden]="mcsLoaderStatus">
+                <img src="assets/images/svg/loader.svg" alt=""> {{'Loading' | tx}}...
+            </div>
+            <br clear="both">
+            <br>
+        </tbody>
+        <tbody *ngIf="(orderHistoryLength ? orderHistoryLength : 0) < 1">
+            <tr>
+                <td colspan="12">{{'YouHaveNoOrder' | tx}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="acct-link" *ngIf="!isLogin">
+        <a [routerLink]="['/login']">{{'lin' | tx}}</a>
+        <span>{{'or' | tx}}</span>
+        <a [routerLink]="['/signup']">{{'SignUp' | tx}}</a>
+    </div>
+    <!-- babar order history mobile -->
+    <ng-container *ngIf="isLogin && isMobile">
+        <div class="panel table-panel"
+            *ngFor="let order of myHistoryOrders() | paginate: { itemsPerPage: myHistoryOrders().length, currentPage: userHistoryOrdersPager, id: 'userHistoryOrdersPager' }; let i = index">
+            <div [ngClass]="{'disable-order': order[11] === null }"
+              *ngIf="pairinitialized" (click)="panelToggle(i, 'ohistory')" class="panel-heading">
+                <div class="panel-heading-left">
+                    <img src="assets/images/svg/icon_{{order[3] == 0 ? 'buy' : 'sell'}}.svg">
+                    <div>
+                        <h6>{{allPairs.getPair(order[1]).name}}</h6>
+                        <div class="order-date32">{{order[10] | date:dateTimeFormat}}</div>
+                    </div>
+                </div>
+                <div class="panel-heading-right">
+                    <div class="order-summary32">
+                        <div class="order-summary-item">
+                            <strong class="order-summary-title">{{'Price' | tx}}:</strong>
+                            <strong
+                                class="order-summary-price">{{ oType[order[2]] === oType[0] ? '-' : decimal_floor(order[5], allPairs.getPair(order[1]).basePrecision)}}</strong>
+                            {{ oType[order[2]] === oType[0] ? '' : allPairs.getPair(order[1]).baseCurrency.symbol}}
+                        </div>
+                        <div class="order-summary-item">
+                            <strong>{{'Amount' | tx}}:</strong>
+                            {{decimal_floor(order[6], allPairs.getPair(order[1]).marketPrecision)}}
+                            {{allPairs.getPair(order[1]).marketCurrency.symbol}}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-expand">
+                    <i class="material-icons add-icon" [hidden]="panelExpandStatus.ohistory[i]">add
+                        circle</i>
+                    <i class="material-icons remove-icon"
+                        [hidden]="!panelExpandStatus.ohistory[i]">remove
+                        circle</i>
+                </div>
+            </div>
+            <div class="panel-collapse" [hidden]="!panelExpandStatus.ohistory[i]">
+                <div class="panel-body">
+                    <ul class="panel-list">
+
+                        <li><strong>{{'OrderType' | tx}}:</strong>
+                            {{ oType[order[2]] | tx }}</li>
+                        <li><strong>{{'TriggerCondition' | tx}}:</strong>
+                            {{order[8] === '-' ? '-' : decimal_floor(order[8], allPairs.getPair(order[1]).basePrecision)}}
+                            <span class="abbr">&nbsp;
+                                {{order[8] === '-' ? '' :  ' ' + allPairs.getPair(order[1]).baseCurrency.symbol}}
+                            </span>
+                        </li>
+                        <li><strong>{{'Price' | tx}}:</strong>
+                            {{order[2] == 0 ? '-' : decimal_floor(order[5], allPairs.getPair(order[1]).basePrecision) }}
+                            <span class="abbr">
+                                &nbsp;{{order[2] == 0 ? '' : ' ' + allPairs.getPair(order[1]).baseCurrency.symbol }}</span>
+                        </li>
+                        <!-- <li><strong>Filled:</strong>
+                                            {{ !(order[11]) ? '-' : decimal_floor(order[7], allPairs.getPair(order[1]).marketPrecision) + ' ' + allPairs.getPair(order[1]).marketCurrency.symbol }}
+                                        </li>
+                                        <li><strong>Average Price:</strong>
+                                            {{ !(order[11]) ? '-' : decimal_floor(order[4], allPairs.getPair(order[1]).basePrecision) + ' ' + allPairs.getPair(order[1]).baseCurrency.symbol}}
+                                        </li> -->
+                        <li><strong>{{'Total' | tx}}: </strong>
+                            {{  !(order[11]) ? '-' : decimal_floor(Number(order.avgprice), allPairs.getPair(order[1]).basePrecision) + ' '}}
+                            <span
+                                class="abbr">&nbsp;{{  !(order[11]) ? '' : allPairs.getPair(order[1]).baseCurrency.symbol}}</span>
+
+                        </li>
+                        <li><strong>{{'Status' | tx}}:</strong> {{oStatus[order[9]] | tx}}</li>
+                    </ul>
+                    <!-- <button *ngIf="order[11]" type="button" class="btn1 btn1-link"
+                        (click)="historyToggle(i)">Details
+                        <span [class.active]="historyDetailStatus[i]" class="caret"></span> -->
+                    <button *ngIf="order[11]" type="button" [class.active]="historyDetailStatus[i]"
+                        class="btn1 btn1-link" (click)="historyToggle(i)">{{'Details' | tx}}
+                        <svg *ngIf="!historyDetailStatus[i]" xmlns="http://www.w3.org/2000/svg"
+                            width="15" height="9" viewBox="0 0 15 9">
+                            <path id="Polygon_56" data-name="Polygon 56" fill="#fff"
+                                d="M6.732.922a1,1,0,0,1,1.536,0L13.633,7.36A1,1,0,0,1,12.865,9H2.135a1,1,0,0,1-.768-1.64Z"
+                                transform="translate(15 9) rotate(180)" />
+                        </svg>
+                        <svg *ngIf="historyDetailStatus[i]" xmlns="http://www.w3.org/2000/svg"
+                            width="15" height="9" viewBox="0 0 15 9">
+                            <path id="Polygon_56" fill="#fff" data-name="Polygon 56"
+                                d="M6.732.922a1,1,0,0,1,1.536,0L13.633,7.36A1,1,0,0,1,12.865,9H2.135a1,1,0,0,1-.768-1.64Z" />
+                        </svg>
+                    </button>
+                    <div [hidden]="!historyDetailStatus[i]" class="history-detailTable">
+                        <div class="ordtotaltrade32">{{'TotalTrades' | tx}}:
+                            {{ decimal_floor(order.avgprice, allPairs.getPair(order[1]).basePrecision) + ' ' }}
+                            <span class="abbr">{{allPairs.getPair(order[1]).baseCurrency.symbol}}
+                            </span>
+                        </div>
+                        <div class="filltable32">
+                            <table class="table1">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Price' | tx}}
+                                            ({{allPairs.getPair(order[1]).baseCurrency.symbol}})
+                                        </th>
+                                        <th>{{'Amount' | tx}}</th>
+                                        <th>{{'FeeSingle' | tx}}</th>
+                                        <th>{{'Total' | tx}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let fill of order[11]">
+                                        <td>{{ decimal_floor(fill[1], allPairs.getPair(order[1]).basePrecision) }}
+                                            <span
+                                                class="opacity-5">{{fill[0] | date: dateTimeFormat}}</span>
+                                        </td>
+                                        <td>
+                                            {{ decimal_floor(fill[2], allPairs.getPair(order[1]).marketPrecision)}}
+                                            <span
+                                                class="opacity-5">{{allPairs.getPair(order[1]).marketCurrency.symbol}}</span>
+                                        </td>
+                                        <td *ngIf="fill[3] === null">0.00000000</td>
+                                        <td *ngIf="fill[3] !== null">
+                                            {{(fill[3]).split(" ")[0] }}
+                                            <span
+                                                class="opacity-5">{{(fill[3]).split(" ")[1]}}</span>
+                                        </td>
+                                        <td>
+                                            {{decimal_floor(fill[1] * fill[2], allPairs.getPair(order[1]).basePrecision)}}
+                                            <span
+                                                class="opacity-5">{{order[2] == 0 ? '' : allPairs.getPair(order[1]).baseCurrency.symbol }}</span>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <pagination-controls *ngIf="orderHistoryLength ? orderHistoryLength > 5 : false"
+                            [directionLinks]="false" class="dark-pag" (pageChange)="userHistoryOrdersPager = $event"
+                            id="userHistoryOrdersPager">
+                        </pagination-controls> -->
+        <div class="panel table-panel empty-panel" *ngIf="orderHistoryLength === 0">
+            <div class="panel-body">
+                <p class="bolder-font-bg">{{'YouHaveNoOrder' | tx}}</p>
+            </div>
+        </div>
+    </ng-container>
+</mat-tab>
+<!-- //start of trade history mobile -->
+<mat-tab label="{{'TradeHistory' | tx}}">
+    <!-- [ngClass]="{'noScollbar': (orderHistoryLength !== 0 ? orderHistoryLength : 0) < 1}"> -->
+    <ng-container *ngIf="isLogin && !isMobile">
+        <table *ngIf="pairinitialized" class="table1 medium"
+            [class.empty-tbl]='(tradeHistoryLength ? tradeHistoryLength : 0) < 1'>
+            <thead>
+                <tr>
+                    <th title="Date" class="dn-v1">{{'Date' | tx}}</th>
+                    <th title="Pair" class="dn-v1">Pair</th>
+                    <th title="Side" class="dn-v2 ordside32">{{'Side' | tx}}</th>
+                    <th title="Symbol" class="dn-v2 ordname32">{{'Symbol' | tx}}</th>
+                    <th title="Type" class="dn-v1">{{'Type' | tx}}</th>
+                    <th title="Price">{{'Price' | tx}}</th>
+                    <th title="Amount">{{'Amount' | tx}}</th>
+                    <th title="Fee">{{'FeeSingle' | tx}}</th>
+                    <th title="Total">{{'Total' | tx}}</th>
+                    <th title="Date" class="dn-v2">{{'Date' | tx}}</th>
+                </tr>
+            </thead>
+            <!-- //babar -->
+            <!-- <tbody
+                            *ngFor="let order of myHistoryOrders() | paginate: { itemsPerPage: 5, currentPage: userHistoryOrdersPager, id: 'userHistoryOrdersPager' }; let i = index"> -->
+            <tbody [hidden]="tradeHistoryLength === 0" class="mcScrollbar32"
+                [ngStyle]="{'height': ordHistTab32.offsetHeight - size.orderHistoryTabHeight - size.orderHistoryTabTheadHeight - (tversion2 ? 5 : 0) + 'px'}">
+                <tr
+                    *ngFor="let fill of tradeHistory() | paginate: { itemsPerPage: (togglechart ? (tversion2 ? orderToshow32[2] : 10) : (tversion2 ? orderToshow32[2] : 5)), currentPage: tradeHistoryPager, id: 'tradeHistoryPager' }; let i = index">
+                    <td class="ordside32">
+                        <img *ngIf="!(fill[5] == 0)" src="assets/images/svg/icon_sell.svg" />
+                        <img *ngIf="(fill[5] == 0)" src="assets/images/svg/icon_buy.svg" />
+                    </td>
+                    <!-- <td class="pre1 dn-v1">{{fill[0] | date: dateTimeFormat}}</td> -->
+                    <td class="ordname32">{{allPairs.getPair(fill[4]).name}}</td>
+                    <!-- <td class="dn-v1" [ngClass]="fill[5] === 0 ? 'text-success' : 'text-danger'">
+                        {{fill[5] == 0 ? 'Buy' : 'Sell'}}
+                    </td> -->
+                    <td>
+                        {{decimal_floor(fill[1], allPairs.getPair(fill[4]).basePrecision)}}
+                        <span
+                            class="opacity-5">{{ allPairs.getPair(fill[4]).baseCurrency.symbol}}</span>
+                    </td>
+                    <td>
+                        {{decimal_floor(fill[2], allPairs.getPair(fill[4]).marketPrecision)}}
+                        <span
+                            class="opacity-5">{{ allPairs.getPair(fill[4]).marketCurrency.symbol}}</span>
+                    </td>
+                    <td *ngIf="fill[3] === null">0.00000000</td>
+                    <td *ngIf="fill[3] !== null">{{ (fill[3]).split(" ")[0] }} <span
+                            class="opacity-5">{{ (fill[3]).split(" ")[1] }} </span>
+                    </td>
+                    <td>
+                        {{decimal_floor(Number(fill[1]) * Number(fill[2]), allPairs.getPair(fill[4]).basePrecision)}}
+                        <span
+                            class="opacity-5">{{ allPairs.getPair(fill[4]).baseCurrency.symbol }}</span>
+                    </td>
+                    <td class="pre1 opacity-5">{{fill[0] | date: dateTimeFormat}}</td>
+                </tr>
+                <pagination-controls
+                    *ngIf="tversion2 ? false : (tradeHistoryLength ? tradeHistoryLength > (togglechart ? 10 : 5) : false)"
+                    [directionLinks]="false" class="dark-pag"
+                    (pageChange)="tradeHistoryPager = $event" id="tradeHistoryPager">
+                </pagination-controls>
+                <div class="mCS-loader" [hidden]="mcsLoaderStatus">
+                    <img src="assets/images/svg/loader.svg" alt=""> {{'Loading' | tx}}...
+                </div>
+                <br clear="both">
+                <br>
+            </tbody>
+            <tbody *ngIf="(tradeHistoryLength ? tradeHistoryLength : 0) < 1">
+                <tr>
+                    <td colspan="12">{{'YouHaveNoTrSmall' | tx}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <div class="acct-link" *ngIf="!isLogin">
+        <a [routerLink]="['/login']">{{'lin' | tx}}</a>
+        <span>{{'or' | tx}}</span>
+        <a [routerLink]="['/signup']">{{'SignUp' | tx}}</a>
+    </div>
+    <!-- babar trade history mobile -->
+    <ng-container *ngIf="isLogin && isMobile && pairinitialized">
+        <div
+            *ngFor="let fill of tradeHistory() | paginate: { itemsPerPage: tradeHistory().length, currentPage: tradeHistoryOrdersPager, id: 'tradeHistoryOrdersPager' }; let i = index">
+            <div class="panel table-panel">
+                <div (click)="panelToggle(i,'thistory')" class="panel-heading">
+                    <div class="panel-heading-left">
+                        <img src="assets/images/svg/icon_{{fill[5] === 0 ? 'buy' : 'sell'}}.svg">
+                        <div>
+                            <h6>{{allPairs.getPair(fill[4]).name}}</h6>
+                            <div class="order-date32">{{fill[0] | date:dateTimeFormat}}</div>
+                        </div>
+                    </div>
+                    <div class="panel-heading-right">
+                        <div class="order-summary32">
+                            <div class="order-summary-item">
+                                <strong class="order-summary-title">{{'Price' | tx}}:</strong>
+                                <strong
+                                    class="order-summary-price">{{decimal_floor(fill[1], allPairs.getPair(fill[4]).basePrecision)}}</strong>
+                                {{ allPairs.getPair(fill[4]).baseCurrency.symbol}}
+                            </div>
+                            <div class="order-summary-item">
+                                <strong>{{'Amount' | tx}}:</strong>
+                                {{decimal_floor(fill[2], allPairs.getPair(fill[4]).marketPrecision)}}
+                                {{ allPairs.getPair(fill[4]).marketCurrency.symbol}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-expand">
+                        <i class="material-icons add-icon"
+                            [hidden]="panelExpandStatus.thistory[i]">add
+                            circle</i>
+                        <i class="material-icons remove-icon"
+                            [hidden]="!panelExpandStatus.thistory[i]">remove
+                            circle</i>
+                    </div>
+                </div>
+                <div class="panel-collapse" [hidden]="!panelExpandStatus.thistory[i]">
+                    <div class="panel-body">
+                        <ul class="panel-list">
+                            <li><strong>{{'FeeSingle' | tx}}:</strong>{{(fill[3]).split(" ")[0] }} <span
+                                    class="abbr">&nbsp;{{(fill[3]).split(" ")[1]}}</span>
+                            </li>
+                            <li><strong>{{'Total' | tx}}:</strong>
+                                {{decimal_floor(Number(fill[1]) * Number(fill[2]), allPairs.getPair(fill[4]).basePrecision)}}
+                                <span
+                                    class="abbr">&nbsp;{{ allPairs.getPair(fill[4]).baseCurrency.symbol}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <pagination-controls *ngIf="tradeHistoryLength ? tradeHistoryLength > 5 : false"
+                            [directionLinks]="false" class="dark-pag"
+                            (pageChange)="tradeHistoryOrdersPager = $event" id="tradeHistoryOrdersPager">
+                        </pagination-controls> -->
+        <div class="panel table-panel empty-panel" *ngIf="tradeHistoryLength === 0">
+            <div class="panel-body">
+                <p class="bolder-font-bg">{{'YouHaveNoOrder' | tx}}</p>
+            </div>
+        </div>
+    </ng-container>
+</mat-tab>
+<!-- end of trade hisotry mobile -->
+
+<mat-tab label="{{'Balances' | tx}}" *ngIf="tversion2 && !isMobile">
+    <ng-container *ngIf="isLogin && !isMobile">
+        <table class="table1 medium ordbalance-tbl32">
+            <thead>
+                <tr>
+                    <th title="Symbol" class="ordsymbolname32">{{'Symbol' | tx}}</th>
+                    <th title="Available Balance">{{'Availablebalance' | tx}}</th>
+                    <th title="Total Balance">{{'TotalBalanc' | tx}}</th>
+                    <th title="Actions" class="flex2">{{'Actions' | tx}}</th>
+                    <th class="flex2"></th>
+                </tr>
+            </thead>
+            <tbody class="mcScrollbar32"
+                [ngStyle]="{'height': ordHistTab32.offsetHeight - size.orderHistoryTabHeight - size.orderHistoryTabTheadHeight - (tversion2 ? 5 : 0) + 'px'}">
+                <ng-container *ngFor="let wallet of myWallets">
+                    <tr *ngIf="defaultSetting.hideSmallBalance ? wallet.btcBalance > 0.001 : true && wallet.currency.status === 1">
+                        <td class=" ordsymbolname32">
+                            <span class="c-logo">
+                                <img alt="coin"
+                                    src="assets/images/svg/{{wallet.currency.name.split(' ').join('-') | lowercase}}.svg">
+                            </span>
+                            <strong class="c-symbol">{{wallet.currency.symbol}}</strong>
+                            <span class="opacity-5 ml-10">{{wallet.currency.name}}</span>
+                        </td>
+                        <td>{{ decimal_format(wallet.available, 8)}}</td>
+                        <td>{{ decimal_format(wallet.balance, 8 )}}</td>
+                        <td class="wallet-btns flex2">
+                            <a class="btn1 btn1-outline btn1-sm"
+                                [routerLink]="['/withdraw', wallet.currency.symbol]">{{'Withdraw' | tx}}</a>
+                                <a *ngIf="disableWallet[wallet.currency.symbol]" style=" background: none; cursor: default; " class="btn1 btn1-outline btn1-sm">{{'Deposit' | tx}}</a>
+                                <a *ngIf="!disableWallet[wallet.currency.symbol]" class="btn1 btn1-outline btn1-sm"
+                                [routerLink]="['/deposit', wallet.currency.symbol]">{{'Deposit' | tx}}</a>
+                                <a class="btn1 btn1-outline btn1-sm"
+                                [routerLink]="['/', wallet.defaultTradePair ]">{{'Trade' | tx}}</a>
+                        </td>
+                        <td class="flex2"></td>
+                    </tr>
+                </ng-container>
+                <br clear="both">
+                <br>
+            </tbody>
+        </table>
+    </ng-container>
+    <div class="acct-link" *ngIf="!isLogin">
+        <a [routerLink]="['/login']">{{'lin' | tx}}</a>
+        <span>{{'or' | tx}}</span>
+        <a [routerLink]="['/signup']">{{'SignUp' | tx}}</a>
+    </div>
+</mat-tab>
+</mat-tab-group>
+</div>

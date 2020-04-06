@@ -1,0 +1,26 @@
+<button type="button" class="close" (click)="closeModal(true)">
+  <svg xmlns="http://www.w3.org/2000/svg" width="15.73" height="15.73" viewBox="0 0 15.73 15.73">
+    <g id="x" transform="translate(0.707 0.707)">
+      <line id="Line_9" data-name="Line 9" fill="none" stroke="#080c34" stroke-linecap="round" stroke-linejoin="round"
+        x1="14.316" y2="14.316" />
+      <line id="Line_10" data-name="Line 10" fill="none" stroke="#080c34" stroke-linecap="round" stroke-linejoin="round"
+        x2="14.316" y2="14.316" />
+    </g>
+  </svg>
+</button>
+<div class="modal-container text-center">
+  <div class="modal-body" *ngIf="!orderLength">
+    <p class="modal-text">{{'Therearnoopenorders' | tx}}</p>
+  </div>
+  <div class="modal-body" *ngIf="orderLength">
+    <p class="modal-text">{{'Aryousure' | tx}}</p>
+    <div class="order-cancel-btns">
+      <button type="button" (click)="closeModal(true)" class="btn1 btn1-sm">
+        {{'Yes' | tx}}
+      </button>
+      <button type="button" (click)="closeModal(false)" class="btn1 btn1-sm">
+        {{'No' | tx}}
+      </button>
+    </div>
+  </div>
+</div>

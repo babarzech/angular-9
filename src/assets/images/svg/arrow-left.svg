@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.255" height="16.876" viewBox="0 0 22.255 16.876">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="panel_Controller_1" transform="rotate(90 8249.427 5691.908)">
+        <g id="arrow-left" transform="rotate(90 -5673.442 8246.638)">
+            <path id="Line_377" d="M0 0h15.38" class="cls-1" data-name="Line 377" transform="translate(0 7.081)"/>
+            <path id="Path_1950" d="M0 14.162l7.081-7.081L0 0" class="cls-1" data-name="Path 1950" transform="translate(8.299)"/>
+        </g>
+        <path id="Line_381" d="M14.875 0H0" class="cls-1" data-name="Line 381" transform="translate(2558.518 13940.334)"/>
+    </g>
+</svg>

@@ -1,0 +1,31 @@
+<svg id="decoin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23.912" height="21.553" viewBox="0 0 23.912 21.553">
+  <defs>
+    <clipPath id="clip-path">
+      <circle id="Ellipse_359" data-name="Ellipse 359" cx="10.776" cy="10.776" r="10.776" transform="translate(0 0)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_1893" data-name="Rectangle 1893" width="21.552" height="21.552"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.954" y1="0.908" x2="0.035" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#040723"/>
+      <stop offset="1" stop-color="#57596c"/>
+    </linearGradient>
+    <clipPath id="clip-path-3">
+      <path id="Path_1322" data-name="Path 1322" d="M6.7,6.6l8.029-.656L10.2,0,.155.058,0,10.2l6.088,3.877Z" transform="translate(0 10.414) rotate(-45)" fill="#040723"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_3" data-name="Mask Group 3" clip-path="url(#clip-path)">
+    <g id="DecoinSlack_180x180_ava" transform="translate(0 0)" clip-path="url(#clip-path-2)">
+      <rect id="Rectangle_1892" data-name="Rectangle 1892" width="21.552" height="21.552" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+  <g id="Group_2213" data-name="Group 2213" transform="translate(3.545 0.304)">
+    <g id="Group_4" data-name="Group 4" transform="translate(0 0)" clip-path="url(#clip-path-3)">
+      <g id="Group_1573" data-name="Group 1573" transform="translate(0.309 3.376)">
+        <path id="Exclusion_3" data-name="Exclusion 3" d="M7.011,14.022h0L0,7.011,7.011,0l8.937,7.011Zm0-11.5h0L2.517,7.011,7.011,11.5l5.744-4.494L7.011,2.517Z" fill="#fff"/>
+        <rect id="Rectangle_1786" data-name="Rectangle 1786" width="10.677" height="1.78" transform="translate(7.881 2.308) rotate(90)" fill="#fff"/>
+      </g>
+    </g>
+    <rect id="Rectangle_1791" data-name="Rectangle 1791" width="2.288" height="1.78" transform="translate(9.778 11.15) rotate(180)" fill="#fff"/>
+  </g>
+</svg>

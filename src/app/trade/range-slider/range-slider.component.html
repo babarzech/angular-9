@@ -1,0 +1,27 @@
+<!--
+	******PLEASE NOTE*******
+	Before or after changing class names check properly
+	***BECAUSE***
+	Class names are being used in components's TS i.e range-slider.component.ts
+	to handle click events.	
+-->
+
+<!-- Main long div or bar-->
+<div class="c2-slider-bar c2-js-slider-bar c2-pointer abc" (mousedown)="onMouseDown($event)" (click)="onClick($event)"
+	#sliderBar>
+	<!--Moveable dot-->
+	<div class="c2-movable-thumb-dot c2-js-slider-movable-thumb-dot" (click)="onMoveableDotClick($event)">
+		<div class="c2-pRelative">
+			<div class="c2-thumb-value c2-hide"></div>
+		</div>
+	</div>
+
+	<!--Static dots at 25,50,75 and 100 %-->
+	<div *ngFor="let step of steps" class="c2-movable-thumb-dot-static"
+		[style.background]="percentage >= step ? sliderConfig.dotColor : '#3d405f'" [style.margin-left.%]="step">
+		<div [class]="step">{{step}}</div>
+	</div>
+
+	<div class="c2-filled-bar"></div>
+	<div class="overlay c2-hide"></div>
+</div>

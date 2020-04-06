@@ -1,0 +1,20 @@
+<a class="close-btn" (click)="closeModal()"><i class="material-icons">close</i></a>
+<div class="modal-container">
+  <h5 class="darkhead text-center">{{'Withdraw' | tx}} {{currency.name}}</h5>
+  <div class="modal-body">
+    <form class="form1 dark padform bigform" (ngSubmit)="onSubmit()">
+      <label>
+        <div class="suffix">{{mainPair ? mainPair.marketCurrency.symbol : ''}}</div>
+        <input [(ngModel)]="model.Amount" name="Amount" type="text" [placeholder]="'AmounttoWithdraw' | tx" />
+        <div class="info _margtop15">{{'Availablebalance' | tx}}: <span>{{wallets[currency.id].available}}
+            {{currency.symbol}}</span></div>
+      </label>
+      <br clear="all" />
+      <label>
+        <input type="text" [(ngModel)]="model.Address" name="Address" placeholder="{{currency.name}} Address" />
+      </label>
+      <br /><br />
+      <button mat-raised-button color="primary" class="col-md-12">{{'Withdraw' | tx}}</button>
+    </form>
+  </div>
+</div>

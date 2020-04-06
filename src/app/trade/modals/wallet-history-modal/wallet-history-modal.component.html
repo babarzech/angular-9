@@ -1,0 +1,64 @@
+<a class="close-btn" (click)="closeModal()"><i class="material-icons">close</i></a>
+<div class="modal-container">
+  <h5 class="darkhead text-center">{{currency.name}} {{'WalletHistory' | tx}}</h5>
+  <!--<div class="fullwidthtab activetab hideripple">
+    <mat-tab-group backgroundColor="warn" disableRipple="true">
+      <mat-tab label="Withdraws">-->
+  <div class="modal-body">
+    <table class="table1 medium table-strip">
+      <thead>
+        <tr>
+          <th>{{'Type' | tx}}</th>
+          <th>{{'ToAddress' | tx}}</th>
+          <th>{{'Amount' | tx}}</th>
+          <th>{{'TransactionId' | tx}}</th>
+          <th>{{'Date' | tx}}</th>
+          <th>{{'Status' | tx}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let tx of walletTransactions  | paginate: { itemsPerPage: 5, currentPage: walletTransactionsPager, id: 'walletTransactionsPager' }">
+          <td [ngClass]="{'green-text': tx.Type == 1, 'red-text': tx.Type == 0}">
+            {{tx.Type == 0 ? 'Withdraw' : 'Deposit'}}</td>
+          <td>{{tx.ToAddress}}</td>
+          <td>{{tx.Amount}}</td>
+          <td class="txsp">{{tx.Txid}}</td>
+          <td>{{tx.Date}}</td>
+          <td><span class="badge white-text xs"
+              [ngClass]="{'orange': tx.Status == 'Pending', 'green': tx.Status == 'Completed' || tx.Status == 'Confirmed', 'red': tx.Status == 'Rejected'}">{{tx.Status}}</span>
+          </td>
+        </tr>
+        <tr *ngIf="walletTransactions.length == 0">
+          <td colspan="6" style="text-align:center">{{'NoTransactiontoShow' | tx}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls *ngIf="walletTransactions ? walletTransactions.length > 5 : false" [directionLinks]="false"
+      class="dark-pag" (pageChange)="walletTransactionsPager = $event" id="walletTransactionsPager">
+    </pagination-controls>
+  </div>
+  <!--
+      </mat-tab>
+      <mat-tab label="Deposits">
+        <table class="table1 medium">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Transaction Id</th>
+              <th>Amount</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <td>Id</td>
+            <td>Transaction Id</td>
+            <td>Amount</td>
+            <td>Date</td>
+          </tbody>
+        </table>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+    -->
+</div>

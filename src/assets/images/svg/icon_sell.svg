@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="icon_sell" transform="translate(-1444 -757)">
+    <g id="Path_1974" data-name="Path 1974" transform="translate(1459 772) rotate(180)" fill="#fc4c4c" stroke-linecap="round">
+      <path d="M 7 14.5 C 2.864490032196045 14.5 -0.5 11.13551044464111 -0.5 7 C -0.5 2.864490032196045 2.864490032196045 -0.5 7 -0.5 C 11.13551044464111 -0.5 14.5 2.864490032196045 14.5 7 C 14.5 11.13551044464111 11.13551044464111 14.5 7 14.5 Z" stroke="none"/>
+      <path d="M 7 0 C 3.134010314941406 0 0 3.134010314941406 0 7 C 0 10.86598968505859 3.134010314941406 14 7 14 C 10.86598968505859 14 14 10.86598968505859 14 7 C 14 3.134010314941406 10.86598968505859 0 7 0 M 7 -1 C 11.41121006011963 -1 15 2.588789939880371 15 7 C 15 11.41121006011963 11.41121006011963 15 7 15 C 2.588789939880371 15 -1 11.41121006011963 -1 7 C -1 2.588789939880371 2.588789939880371 -1 7 -1 Z" stroke="none" fill="#fc4c4c"/>
+    </g>
+    <g id="Group_2499" data-name="Group 2499" transform="translate(2899.19 1489.19) rotate(180)">
+      <g id="arrow-left" transform="translate(1442 723.939) rotate(-45)">
+        <line id="Line_377" data-name="Line 377" x2="6.985" transform="translate(0 3.796)" fill="none" stroke="#080c34" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <path id="Path_1950" data-name="Path 1950" d="M0,7.593,3.8,3.8,0,0" transform="translate(3.188 0)" fill="none" stroke="#080c34" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>
