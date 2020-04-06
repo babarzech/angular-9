@@ -197,12 +197,12 @@ export class TradeComponent implements OnInit, AfterViewInit, OnDestroy {
     public title: Title, public dialog: MatDialog,
     public route: Router, private renderer: Renderer2, public httpClient: HttpClient, private overlayContainer: OverlayContainer,
     @Inject(DOCUMENT) private document: Document) {
-    // setTimeout(() => {
-    //   ref.detach();
-    //   setInterval(() => {
-    //     this.ref.detectChanges();
-    //   }, 100);
-    // }, 6000);
+    setTimeout(() => {
+      ref.detach();
+      setInterval(() => {
+        this.ref.detectChanges();
+      }, 40);
+    }, 6000);
     this.renderer.addClass(document.getElementsByTagName('html')[0], 'trade-html');
     this.route.routeReuseStrategy.shouldReuseRoute = () => false;
     Loader.show();
@@ -862,7 +862,7 @@ export class TradeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  
+
 
   // tabChange(event) {
   //   if (this.isMobile === false) {
